@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Riverty Card DE: Discovery Mindmap</title>
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#F3F1F0; --surface:#FFFFFF; --soft:#E7E4E2; --border:#C9C9C9; --border-soft:#E7E4E2;
+  --text:#282828; --strong:#000000; --muted:#686868; --brand:#527A42; --brand-soft:#E5EBE3;
+  --warn:#FF7429; --warn-soft:#FEF9F5; --err:#B00C15; --ok:#298535; --info:#3E5C73; --info-soft:#F8FAFB;
+  --link:#014BB3; --inv:#282828; --on-inv:#FFFFFF;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#282828; --surface:#000000; --soft:#282828; --border:#686868; --border-soft:#686868;
+    --text:#F3F1F0; --strong:#FFFFFF; --muted:#C9C9C9; --brand:#E5EBE3; --brand-soft:#282828;
+    --warn-soft:#282828; --info-soft:#282828; --link:#C9C9C9; --inv:#F3F1F0; --on-inv:#282828; --err:#EF706B; --ok:#E5EBE3; --info:#C9C9C9;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#282828; --surface:#000000; --soft:#282828; --border:#686868; --border-soft:#686868;
+  --text:#F3F1F0; --strong:#FFFFFF; --muted:#C9C9C9; --brand:#E5EBE3; --brand-soft:#282828;
+  --warn-soft:#282828; --info-soft:#282828; --link:#C9C9C9; --inv:#F3F1F0; --on-inv:#282828; --err:#EF706B; --ok:#E5EBE3; --info:#C9C9C9;
+}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/24px -apple-system,"SF Pro Text",system-ui,"Segoe UI",Helvetica,Arial,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:32px 16px 56px}
+h1,h2,h3{font-family:"GT Ultra Median",Georgia,"Times New Roman",serif;font-weight:300;color:var(--strong);margin:0}
+h1{font-size:40px;line-height:50px;letter-spacing:-1px}
+h2{font-size:28px;line-height:35px;letter-spacing:-.5px}
+h3{font-size:24px;line-height:30px;letter-spacing:-.25px}
+.sub{color:var(--muted);font-size:14px;line-height:21px;margin:8px 0 0}
+.hub{background:var(--inv);color:var(--on-inv);padding:24px;margin:24px 0 8px}
+.hub h2{color:var(--on-inv)}
+.hub p{margin:8px 0 0;font-size:14px;line-height:21px}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;line-height:18px;color:var(--muted);margin:16px 0 24px}
+.tag{display:inline-block;font-size:12px;line-height:18px;font-weight:600;padding:0 6px;border:1px solid var(--border);color:var(--muted);margin-right:6px;vertical-align:baseline}
+.tag.f{border-color:var(--brand);color:var(--brand)}
+.tag.h{border-color:var(--info);color:var(--info)}
+.flag{border-left:4px solid var(--warn);background:var(--warn-soft);padding:12px 16px;margin:16px 0;font-size:14px;line-height:21px}
+.flag b{color:var(--warn)}
+details.branch{background:var(--surface);border:1px solid var(--border);margin:16px 0}
+details.branch>summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;gap:16px;align-items:baseline}
+details.branch>summary::-webkit-details-marker{display:none}
+details.branch>summary::after{content:"+";margin-left:auto;color:var(--muted);font-size:24px}
+details.branch[open]>summary::after{content:"\2212"}
+.num{font-family:"GT Ultra Median",Georgia,serif;font-size:32px;line-height:40px;color:var(--brand);font-weight:300}
+.body{padding:0 20px 20px}
+ul.tree{list-style:none;margin:0;padding:0 0 0 16px;border-left:2px solid var(--border-soft)}
+ul.tree li{position:relative;margin:0;padding:8px 0 8px 16px;font-size:16px;line-height:24px}
+ul.tree li::before{content:"";position:absolute;left:-18px;top:21px;width:16px;border-top:2px solid var(--border-soft)}
+ul.tree li small{display:block;color:var(--muted);font-size:14px;line-height:21px}
+.scroll{overflow-x:auto;margin:8px 0}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px;line-height:21px}
+th,td{border:1px solid var(--border);padding:8px 12px;text-align:left;vertical-align:top}
+th{background:var(--soft);font-weight:600;color:var(--strong)}
+.p0{color:var(--brand);font-weight:600}.p1{color:var(--info);font-weight:600}.p2{color:var(--muted)}.drop{color:var(--err);font-weight:600}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--border);padding:16px}
+.card p{margin:4px 0 0;font-size:14px;line-height:21px}
+.src{font-size:12px;line-height:18px;color:var(--muted)}
+.src a{color:var(--link)}
+.btn{font:16px/20px inherit;text-transform:uppercase;background:var(--surface);color:var(--text);border:1px solid var(--text);padding:14px 24px;cursor:pointer;border-radius:0}
+.btn:focus-visible,summary:focus-visible{outline:2px solid #0071E3;outline-offset:2px}
+@media(max-width:600px){h1{font-size:32px;line-height:40px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Riverty Card, Germany</h1>
+<p class="sub">Discovery sprint mindmap. As of 9 Nov 2026. Card spec not public: all product assumptions are labeled.</p>
+
+<div class="hub">
+  <h2>Primary user (hypothesis)</h2>
+  <p>Digital-native German adult, debit/girocard and PayPal-first, already uses pay-later online. Wants to spread larger purchases and see what they owe, without a credit-card approval wall or Schufa penalty.</p>
+</div>
+
+<div class="legend">
+  <span><span class="tag f">F</span>Sourced fact</span>
+  <span><span class="tag h">H</span>Hypothesis to validate</span>
+  <span><b style="color:var(--warn)">⚑</b> Strategic tension to debate</span>
+  <button class="btn" id="tgl" type="button">Collapse all</button>
+</div>
+
+<details class="branch" open>
+  <summary><span class="num">0</span><h3>Grounding and gaps</h3></summary>
+  <div class="body">
+    <ul class="tree">
+      <li><span class="tag f">F</span>Riverty received an EU banking licence (Luxembourg) in May 2026. German pay-later relationships moved to Riverty Bank S.A. on 1 Aug 2026 (secondary source, verify internally).</li>
+      <li><span class="tag f">F</span>CCD II applies from Nov 2026 and extends credit rules to short-term and interest-free instalments.</li>
+      <li><span class="tag f">F</span>Germany remains a debit-card market. Credit cards are often a secondary card for travel, hotels, online.</li>
+      <li><span class="tag f">F</span>Competitors move: BBVA launched a German credit card in Jun 2026 (5% cashback for 6 months, capped €150). Girocard gets in-app merchant wallet features from spring 2027. Schufa counts account and card inquiries in its score since Mar 2026.</li>
+      <li><span class="tag f">F</span>Statista summary describes Riverty consumer adoption in Germany as not significant (figure paywalled).</li>
+    </ul>
+    <div class="flag"><b>Gaps before building.</b> (1) Card type undefined: debit, charge, revolving or pay-later-linked. Branches 3 to 5 change materially by type. (2) No primary research in hand: every job below is a hypothesis. (3) Unit economics need internal data (loss rates, CAC). Sprint output should be falsifiable tests, not a feature list.</div>
+  </div>
+</details>
+
+<details class="branch" open>
+  <summary><span class="num">1</span><h3>Core jobs-to-be-done</h3></summary>
+  <div class="body">
+    <ul class="tree">
+      <li><b>J1 Split a big purchase, anywhere</b> <span class="tag h">H</span><span class="tag">Core</span>
+        <small>When a purchase exceeds this month’s buffer, let me spread it at any merchant, so I stay in control.</small></li>
+      <li><b>J2 One place for what I owe</b> <span class="tag h">H</span><span class="tag">Core</span>
+        <small>When I shop across merchants, show all obligations and due dates in one view.</small></li>
+      <li><b>J3 Meet the “credit card required” moment</b> <span class="tag h">H</span><span class="tag">Wedge</span>
+        <small>Hotels recommend a card on file at booking or check-in (<span class="tag f">F</span>IHA). Give me one without a credit-wall.</small></li>
+      <li><b>J4 Apply without hurting my score</b> <span class="tag h">H</span><span class="tag">Enabler</span>
+        <small>Card inquiries count in Schufa since Mar 2026 (<span class="tag f">F</span>). Show limit before a hard inquiry.</small></li>
+      <li><b>J5 Pay safely online and in store</b> <span class="tag">Hygiene</span>
+        <small>Wallet, 3-DS, instant freeze. Required, not differentiating.</small></li>
+    </ul>
+    <div class="flag"><b>⚑ T1: Everyday card or situational card?</b> J1 to J4 describe a situational card. A top-of-wallet card must beat girocard and debit habits and needs rewards. Choose one positioning; it drives every branch below.</div>
+  </div>
+</details>
+
+<details class="branch" open>
+  <summary><span class="num">2</span><h3>Friction in existing behavior</h3></summary>
+  <div class="body">
+    <ul class="tree">
+      <li><b>Debit-first habit</b> <span class="tag f">F</span><small>Credit card is rarely the default; activation is the hard problem, not issuance.</small></li>
+      <li><b>Fragmented pay-later</b> <span class="tag h">H</span><small>One invoice or app per merchant. Validate frequency in interviews.</small></li>
+      <li><b>Approval anxiety</b> <span class="tag f">F</span><small>Inquiry count now feeds the Schufa score.</small></li>
+      <li><b>Cost opacity</b> <span class="tag f">F</span><small>Press regularly warns about “cost traps” of free cards. Transparency is a trust lever.</small></li>
+      <li><b>Low consumer brand pull</b> <span class="tag f">F</span><span class="tag h">H</span><small>Statista signals low adoption; Riverty is likely known through merchant checkout, not as a consumer brand. Test awareness.</small></li>
+      <li><b>Convenience gap is closing</b> <span class="tag f">F</span><small>Girocard in-app wallet features (spring 2027) erode “easy online payment” as a wedge.</small></li>
+    </ul>
+  </div>
+</details>
+
+<details class="branch" open>
+  <summary><span class="num">3</span><h3>Feature ideas: effort vs impact</h3></summary>
+  <div class="body">
+    <p class="sub">Team judgment, unvalidated. Effort: S/M/L. Impact: Low/Med/High.</p>
+    <div class="scroll"><table>
+      <tr><th>Feature</th><th>Job</th><th>Impact</th><th>Effort</th><th>Priority</th></tr>
+      <tr><td>Unified “what I owe” view incl. existing Riverty pay-later items</td><td>J2</td><td>High</td><td>S-M</td><td class="p0">P0</td></tr>
+      <tr><td>Instant wallet issuance (Apple/Google Pay) + instant freeze and limits</td><td>J5</td><td>Med</td><td>S</td><td class="p0">P0</td></tr>
+      <tr><td>Limit preview without hard inquiry</td><td>J4</td><td>High</td><td>M</td><td class="p0">P0 (legal check)</td></tr>
+      <tr><td>“Split it” on any past or new purchase (card-linked instalments)</td><td>J1</td><td>High</td><td>M-L</td><td class="p1">P1</td></tr>
+      <tr><td>Flexible due date and reminders</td><td>J2</td><td>Med</td><td>S</td><td class="p1">P1</td></tr>
+      <tr><td>Travel-ready virtual card for hotel and rental deposits</td><td>J3</td><td>Med</td><td>M</td><td class="p1">P1</td></tr>
+      <tr><td>Merchant-funded offers across Riverty’s merchant base</td><td>J1</td><td>High</td><td>L</td><td class="p2">P2 (big bet)</td></tr>
+      <tr><td>Flat cashback matching competitor promos</td><td>None</td><td>Low</td><td>M</td><td class="drop">Drop</td></tr>
+    </table></div>
+    <div class="flag"><b>⚑ T2: Build vs reuse.</b> P0 items reuse existing Riverty data and rails. Anything needing new underwriting logic (limit preview, split-it) should wait for the card-type decision.</div>
+  </div>
+</details>
+
+<details class="branch" open>
+  <summary><span class="num">4</span><h3>Monetization paths and tradeoffs</h3></summary>
+  <div class="body">
+    <div class="scroll"><table>
+      <tr><th>Path</th><th>Upside</th><th>Tradeoff</th><th>Fit</th></tr>
+      <tr><td>Interchange</td><td>No credit risk, scales with spend</td><td>Capped by EU IFR (0.2% debit, 0.3% credit). Thin if card is not top-of-wallet.</td><td>Base layer only</td></tr>
+      <tr><td>Instalment interest and fees</td><td>Highest margin</td><td>Credit risk, CCD II scrutiny, conflicts with “financial wellbeing” brand</td><td>Conditional</td></tr>
+      <tr><td>Merchant-funded instalments and offers</td><td>Leverages B2B base; free for consumer</td><td>Channel conflict (T3); merchants must see incremental sales</td><td>Strong, test first</td></tr>
+      <tr><td>Premium subscription</td><td>Predictable revenue; neobanks use it (<span class="tag f">F</span>)</td><td>Needs clear value; hard for an unknown consumer brand</td><td>Later</td></tr>
+      <tr><td>Late fees</td><td>Easy revenue</td><td>Trust and regulatory risk</td><td class="drop">Avoid</td></tr>
+      <tr><td>Data or ad monetization</td><td>Optional</td><td>GDPR, BaFin scrutiny of behavioral scoring (<span class="tag f">F</span>), trust</td><td class="drop">Avoid</td></tr>
+    </table></div>
+    <div class="flag"><b>⚑ T3: Card vs merchant checkout.</b> Riverty earns from merchants at checkout. A card that works everywhere may cannibalize merchant-paid pay-later or compete with merchants’ preferred flow <span class="tag h">H</span>. Size the overlap before launch.</div>
+    <div class="flag"><b>⚑ T4: Responsible lending vs revenue.</b> Riverty’s stated stance is strict limits and low defaults (<span class="tag f">F</span>). Interest-led revenue and engagement growth pull the other way. Define the acceptable approval and loss envelope up front.</div>
+  </div>
+</details>
+
+<details class="branch" open>
+  <summary><span class="num">5</span><h3>Retention risks and mitigations</h3></summary>
+  <div class="body">
+    <div class="scroll"><table>
+      <tr><th>Risk</th><th>Why</th><th>Mitigation</th></tr>
+      <tr><td>Dormant card</td><td>Debit-first market; card sits in wallet</td><td>First-use trigger within first days, wallet provisioning, anchor to J3 and J1 moments</td></tr>
+      <tr><td>Convenience parity</td><td>Girocard wallet features from spring 2027</td><td>Differentiate on instalment control and one-view obligations, not on payment ease</td></tr>
+      <tr><td>Promo hunters</td><td>Competitor cashback (BBVA) attracts low-LTV users</td><td>Do not match; target J1 and J2 users, measure cohort value</td></tr>
+      <tr><td>Limit cuts and declines</td><td>Strict risk controls can feel arbitrary</td><td>Explain limit logic in-app, show path to higher limit</td></tr>
+      <tr><td>Repayment shock</td><td>Stacked instalments surprise users</td><td>Forward-looking calendar, flexible due date, early nudges</td></tr>
+      <tr><td>Regulatory shift</td><td>CCD II live Nov 2026; behavioral scoring under scrutiny</td><td>Compliance review before scope freeze</td></tr>
+      <tr><td>Trust deficit</td><td>Low consumer brand pull <span class="tag h">H</span></td><td>Transparent fees up front, German-language support, fast dispute handling</td></tr>
+    </table></div>
+    <div class="flag"><b>⚑ T5: Data advantage vs privacy.</b> Riverty’s credit-data heritage (<span class="tag f">F</span>) improves underwriting, yet BaFin and public debate focus on behavioral scoring and data use. Decide what data is in scope before design.</div>
+  </div>
+</details>
+
+<h2 style="margin-top:40px">Sprint plan: test the riskiest assumptions first</h2>
+<div class="cols" style="margin-top:16px">
+  <div class="card"><b>1. Decide card type and positioning (T1)</b><p>Decision workshop, day 1 to 2. Blocks everything else.</p></div>
+  <div class="card"><b>2. Validate primary user and J1 to J4</b><p>Interviews with existing Riverty pay-later users in Germany. Rank jobs by importance and satisfaction.</p></div>
+  <div class="card"><b>3. Quantify cannibalization (T3)</b><p>Internal data: overlap between card-eligible users and merchant checkout volume.</p></div>
+  <div class="card"><b>4. Unit economics model (T4)</b><p>Interchange cap vs expected loss vs acquisition cost. Needs internal inputs.</p></div>
+  <div class="card"><b>5. Legal and compliance scan</b><p>CCD II, limit preview without hard inquiry, scoring data use, passporting.</p></div>
+  <div class="card"><b>6. Concept test positioning</b><p>Situational vs everyday card message, fake-door or prototype.</p></div>
+</div>
+
+<p class="src" style="margin-top:32px"><b>Sources:</b>
+<a href="https://www.presseportal.de/pm/165621/6282661">Riverty bank licence (presseportal)</a> ·
+<a href="https://elucidate.co/directory/riverty-gmbh-5fb74aaea6e7">Riverty GmbH register profile</a> ·
+<a href="https://en.paperjam.lu/article/fintech-firm-riverty-is-becoming-a-bank">Paperjam on Riverty Bank</a> ·
+<a href="https://www.businesswire.com/news/home/20260128361905/en/Germany-Buy-Now-Pay-Later-Business-Report-2026-A-$145.43-Billion-Market-by-2031-Featuring-PayPal-Klarna-RatePay-and-Riverty---ResearchAndMarkets.com">Germany BNPL report 2026</a> ·
+<a href="https://financer.de/karten/kreditkarten-nutzung-deutschland/">Credit card usage Germany</a> ·
+<a href="https://reisetopia.de/kolumne/kreditkarten-markt-2026/">Credit card market 2026</a> ·
+<a href="https://winfuture.de/news,159548.html">Girocard 2027 features</a> ·
+<a href="http://www.soester-anzeiger.de/wirtschaft/kostenlose-kreditkarte-diese-fuenf-kostenfallen-sollten-sie-kennen-zr-94563764.html">Schufa and card inquiries</a> ·
+<a href="https://www.statista.com/statistics/1389518/riverty-adoption-in-germany/">Statista Riverty adoption</a> ·
+<a href="http://www.soester-anzeiger.de/leben/reise/hotel-verlangt-kreditkarte-beim-check-in-was-dabei-gilt-zr-94472507.html">Hotel card requirements</a>.
+Interchange caps: EU Interchange Fee Regulation. Impact and effort ratings are team judgment.</p>
+
+</div>
+<script>
+(function(){
+  var b=document.getElementById('tgl');
+  b.addEventListener('click',function(){
+    var d=document.querySelectorAll('details.branch');
+    var anyOpen=Array.prototype.some.call(d,function(x){return x.open});
+    Array.prototype.forEach.call(d,function(x){x.open=!anyOpen});
+    b.textContent=anyOpen?'Expand all':'Collapse all';
+  });
+})();
+</script>
+</body>
+</html>

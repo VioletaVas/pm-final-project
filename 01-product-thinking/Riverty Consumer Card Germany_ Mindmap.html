@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Riverty Consumer Card Germany: Mindmap</title>
+<style>
+:root{
+  --r-text-strong:#000;--r-text-regular:#282828;--r-text-soft:#686868;--r-text-inverse:#fff;
+  --r-bg-softest:#fff;--r-bg-softer:#F3F1F0;--r-bg-soft:#E7E4E2;--r-bg-inverse:#282828;
+  --r-bg-brand:#527A42;--r-bg-brand-softest:#E5EBE3;
+  --r-border-softest:#E7E4E2;--r-border-softer:#C9C9C9;--r-border-brand:#527A42;
+  --r-status-warning:#FF7429;--r-status-warning-soft:#FEF9F5;
+  --r-link:#014BB3;--r-border-focused:#0071E3;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --r-text-strong:#fff;--r-text-regular:#F3F1F0;--r-text-soft:#C9C9C9;--r-text-inverse:#282828;
+    --r-bg-softest:#333;--r-bg-softer:#1E1E1E;--r-bg-soft:#3A3A3A;--r-bg-inverse:#F3F1F0;
+    --r-bg-brand-softest:#2C3A28;--r-border-softest:#3A3A3A;--r-border-softer:#555;
+    --r-status-warning-soft:#3A2A1E;--r-link:#8DB4FF;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --r-text-strong:#fff;--r-text-regular:#F3F1F0;--r-text-soft:#C9C9C9;--r-text-inverse:#282828;
+  --r-bg-softest:#333;--r-bg-softer:#1E1E1E;--r-bg-soft:#3A3A3A;--r-bg-inverse:#F3F1F0;
+  --r-bg-brand-softest:#2C3A28;--r-border-softest:#3A3A3A;--r-border-softer:#555;
+  --r-status-warning-soft:#3A2A1E;--r-link:#8DB4FF;color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--r-bg-softer);color:var(--r-text-regular);
+  font:16px/24px "SF Pro Text",-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding:40px 24px 56px}
+h1,h2,.serif{font-family:"GT Ultra Median",Georgia,"Times New Roman",serif;font-weight:300;color:var(--r-text-strong)}
+h1{font-size:40px;line-height:50px;letter-spacing:-1px;margin:0 0 8px}
+.sub{color:var(--r-text-soft);font-size:14px;line-height:21px;margin:0 0 24px;max-width:70ch}
+.legend{display:flex;gap:24px;flex-wrap:wrap;font-size:14px;line-height:21px;margin-bottom:32px}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.sw{width:12px;height:12px;display:inline-block}
+.sw.f{background:var(--r-bg-brand)}
+.sw.o{border:2px solid var(--r-status-warning);background:var(--r-status-warning-soft)}
+.tree{display:grid;grid-template-columns:260px 1fr;gap:0;align-items:start}
+.root{position:sticky;top:calc(24px + env(safe-area-inset-top,0px));background:var(--r-bg-inverse);color:var(--r-text-inverse);padding:24px;margin-right:40px}
+.root h2{color:var(--r-text-inverse);font-size:28px;line-height:35px;letter-spacing:-.5px;margin:0 0 8px}
+.root p{margin:0;font-size:14px;line-height:21px;opacity:.85}
+.branches{border-left:1px solid var(--r-border-softer);display:flex;flex-direction:column;gap:32px;padding-left:32px;position:relative}
+.branch{position:relative}
+.branch::before{content:"";position:absolute;left:-32px;top:20px;width:32px;border-top:1px solid var(--r-border-softer)}
+.bh{background:var(--r-bg-softest);border:1px solid var(--r-border-regular,#282828);border-color:var(--r-border-softer);border-left:4px solid var(--r-border-brand);padding:12px 16px;margin-bottom:12px}
+.bh h2{font-size:24px;line-height:30px;letter-spacing:-.25px;margin:0}
+.bh p{margin:0;font-size:12px;line-height:18px;color:var(--r-text-soft)}
+.leaves{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;margin:0;padding:0 0 0 24px;list-style:none;border-left:1px solid var(--r-border-softest)}
+.leaf{background:var(--r-bg-softest);border:1px solid var(--r-border-softer);padding:12px;font-size:14px;line-height:21px;position:relative}
+.leaf::before{content:"";position:absolute;left:-25px;top:22px;width:24px;border-top:1px solid var(--r-border-softest)}
+.leaf.f{border-left:4px solid var(--r-bg-brand)}
+.leaf.o{border:2px solid var(--r-status-warning);background:var(--r-status-warning-soft)}
+.leaf b{font-weight:600;color:var(--r-text-strong);display:block}
+.src{display:block;font-size:12px;line-height:18px;color:var(--r-text-soft);margin-top:4px}
+.panel{background:var(--r-bg-softest);border:1px solid var(--r-border-softer);padding:24px;margin-top:40px}
+.panel h2{font-size:24px;line-height:30px;letter-spacing:-.25px;margin:0 0 12px}
+.panel ol,.panel ul{margin:0;padding-left:20px;font-size:14px;line-height:21px}
+.panel li{margin-bottom:4px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+a{color:var(--r-link)}
+@media (max-width:820px){
+  .tree{grid-template-columns:1fr}
+  .root{position:static;margin:0 0 24px}
+  .branches{padding-left:16px}
+  .branch::before{left:-16px;width:16px}
+  .leaves{padding-left:16px}.leaf::before{left:-17px;width:16px}
+  .cols{grid-template-columns:1fr}
+  h1{font-size:32px;line-height:40px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Riverty Consumer Card, Germany</h1>
+  <p class="sub">Product mindmap. Green nodes are sourced from public pages. Orange nodes are open decisions or unverified: no public specification of the card was found, so none is assumed.</p>
+  <div class="legend">
+    <span><i class="sw f"></i>Sourced fact</span>
+    <span><i class="sw o"></i>Open decision / to confirm</span>
+  </div>
+
+  <div class="tree">
+    <aside class="root">
+      <h2>Riverty Consumer Card (DE)</h2>
+      <p>First consumer card from Riverty in Germany. Issuer, card type, scheme and launch date to be confirmed internally.</p>
+    </aside>
+
+    <div class="branches">
+
+      <section class="branch">
+        <div class="bh"><h2>1. Issuer and Licence</h2><p>Who issues, who is liable</p></div>
+        <ul class="leaves">
+          <li class="leaf f"><b>Riverty Bank S.A. (Luxembourg)</b>Banking licence obtained 2026. Opened Sep 2026.<span class="src">Wikipedia, LeadIQ</span></li>
+          <li class="leaf f"><b>DE BNPL moved to the bank</b>German BNPL customer relationships moved to Riverty Bank S.A. from 1 Aug 2026.<span class="src">Elucidate</span></li>
+          <li class="leaf f"><b>Riverty GmbH stays a BaFin payment institution</b>EBA register lists card acquiring.<span class="src">Elucidate</span></li>
+          <li class="leaf o"><b>Issuing model</b>Own BIN or sponsor? Scheme: Visa or Mastercard? Cross-border passporting into DE.</li>
+        </ul>
+      </section>
+
+      <section class="branch">
+        <div class="bh"><h2>2. Card Type and Proposition</h2><p>What the card does for the consumer</p></div>
+        <ul class="leaves">
+          <li class="leaf f"><b>Four card types exist in DE</b>Debit, charge, prepaid, revolving credit.<span class="src">how-to-germany.com</span></li>
+          <li class="leaf o"><b>Choose the type</b>Which of the four, or a BNPL-linked hybrid?</li>
+          <li class="leaf o"><b>Core value proposition</b>Pay later, instalments, rewards, or merchant-specific benefits?</li>
+          <li class="leaf o"><b>Pricing</b>Annual fee, interest, instalment fees.</li>
+        </ul>
+      </section>
+
+      <section class="branch">
+        <div class="bh"><h2>3. Customers</h2><p>Who it is for</p></div>
+        <ul class="leaves">
+          <li class="leaf f"><b>Existing base</b>23 million (Pay.nl) to 28+ million (Riverty) consumers in Europe. Figures differ by source and date.<span class="src">Pay.nl, Riverty newsroom</span></li>
+          <li class="leaf f"><b>Credit card use in DE is lower than in many European countries</b><span class="src">settle-in-berlin.com</span></li>
+          <li class="leaf o"><b>Target segment</b>Existing Riverty BNPL users, new-to-Riverty, or both?</li>
+          <li class="leaf o"><b>Jobs to be done</b>Validate with research before scoping features.</li>
+        </ul>
+      </section>
+
+      <section class="branch">
+        <div class="bh"><h2>4. Market and Competition</h2><p>Where it plays</p></div>
+        <ul class="leaves">
+          <li class="leaf f"><b>DE BNPL market</b>Estimated USD 83.46B in 2026, USD 145.43B by 2031 (11.7% CAGR).<span class="src">ResearchAndMarkets (vendor estimate)</span></li>
+          <li class="leaf f"><b>Named competitors</b>PayPal, Klarna, RatePay.<span class="src">ResearchAndMarkets</span></li>
+          <li class="leaf f"><b>Banks embed instalments in cards</b>Deutsche Bank, Commerzbank, Sparkassen, Volksbanken. Visa and Mastercard instalment APIs.<span class="src">ResearchAndMarkets</span></li>
+          <li class="leaf o"><b>Differentiation</b>Define against bank card-linked instalments and fintech BNPL.</li>
+        </ul>
+      </section>
+
+      <section class="branch">
+        <div class="bh"><h2>5. Distribution and Ecosystem</h2><p>How it reaches users and where it works</p></div>
+        <ul class="leaves">
+          <li class="leaf f"><b>Merchant network</b>Webshops, eBay (DE), public transport, telecom, EV charging, insurers.<span class="src">Wikipedia, Riverty newsroom</span></li>
+          <li class="leaf f"><b>Existing card use</b>Riverty ticket payments accept credit cards with 3D Secure.<span class="src">Riverty FAQ</span></li>
+          <li class="leaf o"><b>Channels</b>App, wallets (Apple Pay, Google Pay), physical plus virtual card.</li>
+          <li class="leaf o"><b>Merchant co-branding</b>Reuse of the co-brand model used in BNPL?</li>
+        </ul>
+      </section>
+
+      <section class="branch">
+        <div class="bh"><h2>6. Risk, Compliance and Operations</h2><p>What must work on day one</p></div>
+        <ul class="leaves">
+          <li class="leaf f"><b>Credit scoring in DE</b>Schufa influences approval decisions.<span class="src">Wallester</span></li>
+          <li class="leaf f"><b>KYC</b>Fourthline verification live in Germany since Apr 2025.<span class="src">LeadIQ</span></li>
+          <li class="leaf f"><b>Servicing</b>New customer service platform launched 2025.<span class="src">LeadIQ</span></li>
+          <li class="leaf o"><b>Underwriting and limits</b>Reuse BNPL decision engine or build new?</li>
+          <li class="leaf o"><b>Fraud, disputes, chargebacks</b>Processor and tooling choice.</li>
+        </ul>
+      </section>
+
+      <section class="branch">
+        <div class="bh"><h2>7. Success Metrics</h2><p>Proposed, not sourced</p></div>
+        <ul class="leaves">
+          <li class="leaf o"><b>Activation and usage</b>Approval rate, activation rate, spend per active user.</li>
+          <li class="leaf o"><b>Risk and economics</b>Loss rate, cost to serve, revenue per card.</li>
+          <li class="leaf o"><b>Strategic</b>Cross-sell to BNPL base, merchant retention.</li>
+        </ul>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="panel cols">
+    <div>
+      <h2>Gaps and Blind Spots</h2>
+      <ul>
+        <li>No public card specification found. Orange nodes need an internal brief.</li>
+        <li>Customer count differs by source (23M vs 28M+).</li>
+        <li>Riverty Bank start date differs by source (Aug vs Sep 2026).</li>
+        <li>Market size is a vendor estimate, not audited.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Next Steps, Prioritized</h2>
+      <ol>
+        <li>Confirm card type, scheme and issuing model (branch 1 and 2).</li>
+        <li>Define target segment and jobs to be done (branch 3).</li>
+        <li>Decide underwriting reuse vs build (branch 6).</li>
+        <li>Set KPIs and launch gates (branch 7).</li>
+      </ol>
+    </div>
+  </div>
+</div>
+</body>
+</html>

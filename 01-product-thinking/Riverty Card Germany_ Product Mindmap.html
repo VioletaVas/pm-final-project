@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Riverty Card Germany: Product Mindmap</title>
+<style>
+:root{
+  --r-text-strong:#000;--r-text-regular:#282828;--r-text-soft:#686868;--r-text-brand:#527A42;
+  --r-bg-softest:#fff;--r-bg-softer:#F3F1F0;--r-bg-soft:#E7E4E2;--r-bg-brand:#527A42;--r-bg-brand-softest:#E5EBE3;
+  --r-border-softest:#E7E4E2;--r-border-softer:#C9C9C9;--r-border-regular:#282828;--r-border-brand:#527A42;
+  --r-error:#B00C15;--r-error-soft:#FEF6F6;--r-warning:#FF7429;--r-warning-soft:#FEF9F5;--r-info:#3E5C73;--r-info-soft:#F8FAFB;
+  --r-link:#014BB3;--r-inverse:#282828;--r-text-inverse:#fff;
+  --r-radius-none:0;
+  --serif:"GT Ultra Median",Georgia,"Times New Roman",serif;
+  --sans:"SF Pro Text",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --r-text-strong:#fff;--r-text-regular:#E7E4E2;--r-text-soft:#A8A5A3;--r-text-brand:#9CC48A;
+  --r-bg-softest:#2f2f2f;--r-bg-softer:#1f1f1f;--r-bg-soft:#3a3a3a;--r-bg-brand-softest:#2c3a28;
+  --r-border-softest:#3a3a3a;--r-border-softer:#555;--r-border-regular:#E7E4E2;--r-border-brand:#9CC48A;
+  --r-error-soft:#3a1f21;--r-warning-soft:#3a2a1f;--r-info-soft:#222c33;--r-link:#7FB0FF;--r-inverse:#E7E4E2;--r-text-inverse:#282828;
+}}
+:root[data-theme="dark"]{
+  --r-text-strong:#fff;--r-text-regular:#E7E4E2;--r-text-soft:#A8A5A3;--r-text-brand:#9CC48A;
+  --r-bg-softest:#2f2f2f;--r-bg-softer:#1f1f1f;--r-bg-soft:#3a3a3a;--r-bg-brand-softest:#2c3a28;
+  --r-border-softest:#3a3a3a;--r-border-softer:#555;--r-border-regular:#E7E4E2;--r-border-brand:#9CC48A;
+  --r-error-soft:#3a1f21;--r-warning-soft:#3a2a1f;--r-info-soft:#222c33;--r-link:#7FB0FF;--r-inverse:#E7E4E2;--r-text-inverse:#282828;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--r-bg-softer);color:var(--r-text-regular);font:14px/21px var(--sans)}
+main{max-width:1180px;margin:0 auto;padding:40px 16px 56px}
+h1,h2,h3{font-family:var(--serif);font-weight:300;color:var(--r-text-strong);margin:0}
+h1{font-size:32px;line-height:40px;letter-spacing:-.75px}
+h2{font-size:24px;line-height:30px;letter-spacing:-.25px}
+.sub{color:var(--r-text-soft);margin:8px 0 24px;max-width:760px}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin:0 0 32px;font-size:12px;line-height:18px;color:var(--r-text-soft)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.tag{display:inline-block;min-width:28px;text-align:center;padding:0 6px;font-size:12px;line-height:18px;font-weight:600;border:1px solid var(--r-border-regular);color:var(--r-text-regular);background:var(--r-bg-softest)}
+.tag.p0{background:var(--r-inverse);color:var(--r-text-inverse);border-color:var(--r-inverse)}
+.sw{width:12px;height:12px;display:inline-block;border:1px solid var(--r-border-softer);background:var(--r-bg-softest)}
+.sw.f{border-left:3px solid var(--r-border-brand)}
+.map{display:flex;align-items:stretch;gap:0}
+.root{flex:0 0 190px;display:flex;align-items:center;padding-right:24px}
+.rootbox{background:var(--r-inverse);color:var(--r-text-inverse);padding:24px 16px;width:100%}
+.rootbox h2{color:var(--r-text-inverse)}
+.rootbox p{margin:8px 0 0;font-size:12px;line-height:18px;opacity:.85}
+.branches{flex:1;display:flex;flex-direction:column;gap:24px;border-left:1px solid var(--r-border-softer);padding-left:24px}
+.branch{position:relative;display:flex;gap:24px;align-items:flex-start}
+.branch::before{content:"";position:absolute;left:-24px;top:28px;width:24px;border-top:1px solid var(--r-border-softer)}
+.bhead{flex:0 0 190px;background:var(--r-bg-softest);border:1px solid var(--r-border-regular);padding:12px 16px}
+.bhead h3{font-size:20px;line-height:26px}
+.bhead small{display:block;color:var(--r-text-soft);font-size:12px;line-height:18px;margin-top:4px}
+.bhead.risk{border-color:var(--r-error)}
+.leaves{flex:1;list-style:none;margin:0;padding:0 0 0 24px;border-left:1px solid var(--r-border-softer);display:grid;gap:8px}
+.leaf{position:relative;background:var(--r-bg-softest);border:1px solid var(--r-border-softest);padding:8px 12px;display:flex;gap:12px;align-items:flex-start}
+.leaf::before{content:"";position:absolute;left:-24px;top:18px;width:24px;border-top:1px solid var(--r-border-softer)}
+.leaf.f{border-left:3px solid var(--r-border-brand)}
+.leaf b{font-weight:600;color:var(--r-text-strong)}
+.leaf .t{flex:1}
+.leaf .t span{display:block;color:var(--r-text-soft);font-size:12px;line-height:18px}
+.risk-high{background:var(--r-error-soft)}
+.risk-med{background:var(--r-warning-soft)}
+section.next{margin-top:48px;background:var(--r-bg-softest);border:1px solid var(--r-border-softer);padding:24px}
+section.next ol{margin:16px 0 0;padding-left:20px}
+section.next li{margin-bottom:8px}
+.src{margin-top:32px;font-size:12px;line-height:18px;color:var(--r-text-soft)}
+.src a{color:var(--r-link)}
+.src ul{padding-left:16px;margin:8px 0}
+@media (max-width:860px){
+  .map,.branch{flex-direction:column}
+  .root{flex:none;padding:0 0 16px}
+  .branches{padding-left:12px}
+  .branch::before{display:none}
+  .bhead{flex:none;width:100%}
+  .leaves{padding-left:12px;width:100%}
+  .leaf::before{left:-12px;width:12px}
+}
+</style>
+</head>
+<body>
+<main>
+  <h1>Riverty Card Germany</h1>
+  <p class="sub">Product mindmap: features, user needs, risks. No public product specification for the card was found, so features are hypotheses derived from grounded market and company context. Validate before commitment.</p>
+  <div class="legend">
+    <span><i class="sw f"></i>Grounded in source</span>
+    <span><i class="sw"></i>Hypothesis to validate</span>
+    <span><span class="tag p0">P0</span>Launch-critical</span>
+    <span><span class="tag">P1</span>Fast follow</span>
+    <span><span class="tag">P2</span>Later</span>
+  </div>
+  <div class="map">
+    <div class="root"><div class="rootbox"><h2>Riverty Card</h2><p>First consumer card, Germany. Issuer entity assumed: Riverty Bank S.A. (Luxembourg).</p></div></div>
+    <div class="branches" id="branches"></div>
+  </div>
+
+  <section class="next">
+    <h2>Recommended Next Steps</h2>
+    <ol>
+      <li><b>Confirm the card concept</b> (debit, credit, revolving or pay-later card) with the product owner. Every branch above depends on it.</li>
+      <li><b>Validate the top 3 needs</b> with Riverty’s existing six payment personas before scoping features.</li>
+      <li><b>Run a legal check on CCD II</b> affordability and disclosure requirements before locking the repayment design.</li>
+      <li><b>Define success metrics</b>: activation, share of spend on card, delinquency rate. No baselines were found in public sources.</li>
+    </ol>
+  </section>
+
+  <div class="src">
+    Sources (retrieved 9 Nov 2026). Note: sources differ on Riverty Bank’s start of operations (July vs August 2026).
+    <ul>
+      <li><a href="https://born2invest.com/articles/riverty-secures-eu-banking-license-europe/">Riverty secures EU banking licence</a></li>
+      <li><a href="https://elucidate.co/directory/riverty-gmbh-5fb74aaea6e7">Riverty GmbH register profile: BNPL customers moved to Riverty Bank S.A. on 1 Aug 2026</a></li>
+      <li><a href="https://www.businesswire.com/news/home/20260128361905/en/Germany-Buy-Now-Pay-Later-Business-Report-2026-A-$145.43-Billion-Market-by-2031-Featuring-PayPal-Klarna-RatePay-and-Riverty---ResearchAndMarkets.com">Germany BNPL Business Report 2026</a></li>
+      <li><a href="https://ffnews.com/fintech-tv/event/2024/nexi-roadshow/could-bnpl-be-the-future-of-german-e-commerce-riverty-nexi-roadshow-bits-pretzels-munich/">Riverty at Nexi Roadshow: payment personas, age-group habits</a></li>
+      <li><a href="https://www.how-to-germany.com/credit-cards/types/revolving/">Revolving cards in Germany: bank account and Schufa requirement</a></li>
+      <li><a href="https://hyperswitch.io/blog/popular-payment-methods-in-germany">German payment method shares (single secondary source)</a></li>
+      <li><a href="https://www.statista.com/statistics/1389518/riverty-adoption-in-germany/">Statista: Riverty consumer adoption in Germany</a></li>
+    </ul>
+  </div>
+</main>
+
+<script>
+// f = grounded in source, p = priority
+var D=[
+{h:"Features",s:"Hypotheses, MVP first",c:"",l:[
+ ["P0","Digital-first issuance in Riverty App","Instant virtual card, then physical. Riverty App already exists for payments and reminders.",1],
+ ["P0","Apple Pay / Google Pay tokenization","Wallets are the growing front end for cards in Germany.",1],
+ ["P0","Clear repayment choice","Pay in full or split, switchable in app. Mirrors revolving-card norms.",1],
+ ["P0","Real-time spend view and limit control","Addresses control need; supports responsible lending.",0],
+ ["P1","Post-purchase instalment conversion","Card-linked instalments are an expanding bank trend in Germany.",1],
+ ["P1","Card freeze, alerts, autopay via SEPA","Security and missed-payment prevention.",0],
+ ["P1","Monthly invoice bundling across merchants","Extends Riverty’s existing monthly-invoice proposition (parking, transit).",1],
+ ["P2","Rewards, insurance, virtual card per merchant","Differentiators after core trust is built.",0]
+]},
+{h:"User Needs",s:"Jobs to be done",c:"",l:[
+ ["Need","Control over spend and repayment","Know what is owed and when, in one place.",1],
+ ["Need","Pay later without surprise cost","German consumers traditionally like to pay afterwards (invoice).",1],
+ ["Need","Trust and security","Credit cards are chosen for security. Established “payment heroes” such as PayPal foster trust.",1],
+ ["Need","Works everywhere","Acceptance at checkout, in store, in wallets.",0],
+ ["Need","Fast, low-friction onboarding","Revolving cards typically need a German bank account and positive Schufa score.",1],
+ ["Need","Fit to payment persona and age group","Younger: PayPal and BNPL. Older: direct debit and cards.",1]
+]},
+{h:"Potential Problems",s:"Risks, ranked by severity",c:"risk",l:[
+ ["High","Regulation: CCD II and affordability checks","CCD II raises compliance thresholds and favours larger incumbents.",1,"risk-high"],
+ ["High","Over-indebtedness and fee backlash","Reputational risk if credit and late fees are opaque. Needs responsible-lending design.",0,"risk-high"],
+ ["High","Low consumer brand awareness in Germany","Statista reports no significant consumer usage of Riverty in Germany.",1,"risk-high"],
+ ["High","Crowded field","Klarna, PayPal, banks and Sparkassen already offer card-linked instalments.",1,"risk-high"],
+ ["Med","New bank entity, new operations","Riverty Bank started operating in 2026. Servicing, support and risk models are unproven at consumer-card scale.",1,"risk-med"],
+ ["Med","Unit economics","Interchange income versus credit loss, funding and servicing cost. No public data; model needed.",0,"risk-med"],
+ ["Med","Fraud, KYC and onboarding drop-off","Identity checks versus conversion trade-off.",0,"risk-med"],
+ ["Med","Scheme dependence and digital euro","Visa and Mastercard handle 47% of eurozone card payment value; digital euro may shift dynamics.",1,"risk-med"],
+ ["Med","Cannibalising Riverty merchant BNPL","Merchants may prefer bank-issued instalments to limit BNPL-specific fees.",1,"risk-med"]
+]}
+];
+var root=document.getElementById("branches");
+D.forEach(function(b){
+  var br=document.createElement("div");br.className="branch";
+  var hd=document.createElement("div");hd.className="bhead "+b.c;
+  var h=document.createElement("h3");h.textContent=b.h;
+  var sm=document.createElement("small");sm.textContent=b.s;
+  hd.appendChild(h);hd.appendChild(sm);
+  var ul=document.createElement("ul");ul.className="leaves";
+  b.l.forEach(function(x){
+    var li=document.createElement("li");
+    li.className="leaf"+(x[3]?" f":"")+(x[4]?" "+x[4]:"");
+    var tg=document.createElement("span");tg.className="tag"+(x[0]==="P0"?" p0":"");tg.textContent=x[0];
+    var t=document.createElement("div");t.className="t";
+    var bb=document.createElement("b");bb.textContent=x[1];
+    var sp=document.createElement("span");sp.textContent=x[2];
+    t.appendChild(bb);t.appendChild(sp);
+    li.appendChild(tg);li.appendChild(t);ul.appendChild(li);
+  });
+  br.appendChild(hd);br.appendChild(ul);root.appendChild(br);
+});
+</script>
+</body>
+</html>
