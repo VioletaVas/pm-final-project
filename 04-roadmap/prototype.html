@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Riverty · Decline reason and retry hint · Prototype</title>
+<style>
+:root{
+  --r-text-strong:#000;--r-text-regular:#282828;--r-text-soft:#686868;--r-text-inverse:#fff;--r-text-brand:#527A42;
+  --r-bg-softest:#fff;--r-bg-softer:#F3F1F0;--r-bg-soft:#E7E4E2;--r-bg-inverse:#282828;--r-bg-brand-softest:#E5EBE3;
+  --r-bg-hover:rgba(40,40,40,.04);--r-bg-active:rgba(40,40,40,.12);
+  --r-border-softest:#E7E4E2;--r-border-softer:#C9C9C9;--r-border-regular:#282828;--r-border-brand:#527A42;--r-border-focused:#0071E3;
+  --r-err:#B00C15;--r-err-soft:#FEF6F6;--r-ok:#298535;--r-ok-soft:#F7FDF8;--r-info:#3E5C73;--r-info-soft:#F8FAFB;
+  --r-radius-none:0;
+  --elev-raised:0 1px 3px rgba(0,0,0,.12);--elev-floating:0 4px 12px rgba(0,0,0,.16);
+  --serif:"GT Ultra Median",Georgia,"Times New Roman",serif;
+  --sans:"SF Pro Text",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box;border-radius:var(--r-radius-none)}
+html,body{margin:0}
+body{background:var(--r-bg-softer);color:var(--r-text-regular);font:400 16px/24px var(--sans);padding:32px 16px}
+h1,h2,h3{font-family:var(--serif);font-weight:300;color:var(--r-text-strong);margin:0}
+:focus-visible{outline:2px solid var(--r-border-focused);outline-offset:2px}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:980px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:40px;align-items:start}
+@media(max-width:860px){.wrap{grid-template-columns:1fr}.phone-col{order:-1}}
+
+/* control panel */
+.panel h1{font-size:28px;line-height:35px;letter-spacing:-.5px}
+.panel .sub{color:var(--r-text-soft);font-size:14px;line-height:21px;margin:8px 0 24px}
+.panel h3{font-family:var(--sans);font-weight:600;font-size:12px;line-height:18px;color:var(--r-text-soft);margin:24px 0 8px}
+.sc{display:flex;justify-content:space-between;gap:8px;width:100%;text-align:left;background:var(--r-bg-softest);border:1px solid var(--r-border-softer);padding:10px 12px;margin-bottom:8px;font-size:14px;line-height:21px}
+.sc:hover{background:var(--r-bg-hover)}
+.sc small{color:var(--r-text-soft);font-size:12px;white-space:nowrap}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{height:48px;padding:0 20px;border:1px solid var(--r-border-regular);background:var(--r-bg-softest);color:var(--r-text-regular);text-transform:uppercase;line-height:20px;letter-spacing:.2px}
+.btn.primary{background:var(--r-bg-inverse);color:var(--r-text-inverse)}
+.btn:hover:not(:disabled){background:var(--r-bg-hover)}.btn.primary:hover:not(:disabled){background:#000}
+.btn:active:not(:disabled){background:var(--r-bg-active)}.btn.primary:active:not(:disabled){background:#000}
+.btn:disabled{background:var(--r-bg-soft);border-color:var(--r-border-softer);color:var(--r-text-soft);cursor:not-allowed}
+.btn.sm{height:36px;padding:0 12px;font-size:12px}
+.btn.block{width:100%}
+label.tg{display:flex;gap:8px;align-items:center;font-size:14px;cursor:pointer}
+.log{background:var(--r-bg-softest);border:1px solid var(--r-border-softest);padding:8px 12px;font-size:12px;line-height:18px;color:var(--r-text-soft);min-height:60px;max-height:170px;overflow:auto}
+.log div+div{margin-top:2px}
+.evals{list-style:none;margin:0;padding:0;font-size:13px;line-height:19px}
+.evals li{display:grid;grid-template-columns:44px 1fr;gap:8px;padding:6px 0;border-bottom:1px solid var(--r-border-softest)}
+.evals b{font-size:12px}.pass{color:var(--r-ok)}.fail{color:var(--r-err)}.man{color:var(--r-info)}
+.note{font-size:12px;line-height:18px;color:var(--r-text-soft);margin-top:8px}
+
+/* phone */
+.phone{position:relative;width:390px;max-width:100%;height:760px;background:var(--r-bg-softer);border:1px solid var(--r-border-regular);overflow:hidden;box-shadow:var(--elev-raised)}
+.screen{height:100%;overflow:auto;padding:24px 20px 32px}
+.app-h{margin-bottom:24px}
+.app-h h1{font-size:32px;line-height:40px;letter-spacing:-.75px}
+.app-h p{margin:4px 0 0;font-size:14px;line-height:21px;color:var(--r-text-soft)}
+.back{background:none;border:0;padding:0;margin-bottom:16px;font-size:14px;color:var(--r-text-regular);text-decoration:underline}
+.act{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;background:var(--r-bg-softest);border:1px solid var(--r-border-softer);padding:14px 16px;margin-bottom:8px;min-height:60px}
+button.act:hover{background:var(--r-bg-hover)}
+.act .t{font-weight:600}.act .s{font-size:14px;line-height:21px;color:var(--r-text-soft)}
+.act .r{text-align:right;flex:none}
+.amt{font-family:var(--serif);font-weight:300;font-size:24px;line-height:30px;letter-spacing:-.25px;color:var(--r-text-strong)}
+.act .amt{font-size:18px;line-height:24px}
+.badge{display:inline-block;font-size:12px;line-height:18px;font-weight:600;padding:2px 8px;margin-top:2px}
+.badge.err{background:var(--r-err-soft);color:var(--r-err);border:1px solid var(--r-err)}
+.badge.ok{background:var(--r-ok-soft);color:var(--r-ok);border:1px solid var(--r-ok)}
+.empty{color:var(--r-text-soft);font-size:14px;line-height:21px;padding:24px 0}
+.card{background:var(--r-bg-softest);padding:16px 20px;margin:16px 0}
+.card .s{font-size:14px;line-height:21px;color:var(--r-text-soft)}
+.blk{padding:16px;margin-bottom:12px;background:var(--r-bg-softest);border:1px solid var(--r-border-softer)}
+.blk .k{font-size:12px;line-height:18px;font-weight:600;color:var(--r-text-soft);margin-bottom:4px}
+.blk.reason{background:var(--r-err-soft);border-color:var(--r-err)}
+.blk.reason .k{color:var(--r-err)}
+.blk.hint{background:var(--r-bg-brand-softest);border:2px solid var(--r-border-brand)}
+.blk.hint .k{color:var(--r-text-brand)}
+.stack{display:grid;gap:8px;margin-top:24px}
+.fine{font-size:12px;line-height:18px;color:var(--r-text-soft);margin-top:12px}
+.ok-ic{width:56px;height:56px;border:1px solid var(--r-ok);background:var(--r-ok-soft);display:grid;place-items:center;margin:32px 0 24px}
+.push{position:absolute;left:12px;right:12px;top:12px;background:var(--r-bg-softest);border:1px solid var(--r-border-softer);border-left:4px solid var(--r-err);box-shadow:var(--elev-floating);display:flex;z-index:5}
+.push-main{flex:1;text-align:left;background:none;border:0;padding:12px 8px 12px 12px;min-width:0}
+.push-main .h{font-size:12px;line-height:18px;color:var(--r-text-soft)}
+.push-main .t{font-weight:600;font-size:14px;line-height:21px}
+.push-main .b{font-size:14px;line-height:21px}
+.push-x{background:none;border:0;padding:0 12px;font-size:18px;color:var(--r-text-soft);align-self:flex-start;height:36px}
+.toast{position:absolute;left:12px;right:12px;bottom:12px;background:var(--r-info-soft);border:1px solid var(--r-info);color:var(--r-info);padding:12px 16px;font-size:14px;line-height:21px;box-shadow:var(--elev-floating);z-index:6}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <aside class="panel">
+    <h1>Decline reason and retry hint</h1>
+    <p class="sub">Prototype controls. All data is synthetic and in memory; retry outcomes are scripted per scenario. Reasons and hints come from one fixed table (placeholder copy, pending compliance approval).</p>
+
+    <h3>Trigger a decline</h3>
+    <div id="scs"></div>
+    <div class="row">
+      <button class="btn sm" id="dup" disabled>Report last event twice</button>
+      <button class="btn sm" id="reset">Reset</button>
+    </div>
+    <h3>Delivery</h3>
+    <label class="tg"><input type="checkbox" id="pushOn" checked> Push notifications on</label>
+    <p class="note">Simulated push latency: 1.5 s (SLA of 5 s is an assumption). Retry cap: 2 failed attempts (assumption).</p>
+
+    <h3>Event log</h3>
+    <div class="log" id="log"></div>
+
+    <h3>Evals</h3>
+    <button class="btn sm primary" id="runEvals">Run evals</button>
+    <ul class="evals" id="evals"></ul>
+  </aside>
+
+  <section class="phone-col"><div class="phone" id="phone" aria-live="polite"></div></section>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- Fixed copy table (no generated text) ---------- */
+var REASONS = {
+  CONTACTLESS_LIMIT:{reason:"Das Limit für kontaktloses Bezahlen ist erreicht.",hint:"Stecke die Karte ein und gib deine PIN ein."},
+  LIMIT:{reason:"Dein verfügbares Kartenlimit reicht für diesen Betrag nicht aus.",hint:"Zahle einen kleineren Betrag oder nutze eine andere Zahlungsart."},
+  PIN:{reason:"Die PIN wurde nicht akzeptiert.",hint:"Gib deine PIN noch einmal sorgfältig ein."},
+  AUTH_3DS:{reason:"Die Zahlung wurde online nicht bestätigt.",hint:"Bestätige die Zahlung in der App und versuche es erneut."},
+  TERMINAL:{reason:"Die Verbindung zum Terminal wurde unterbrochen.",hint:"Halte die Karte erneut an das Terminal."},
+  OTHER:{reason:"Die Zahlung wurde abgelehnt.",hint:"Versuche es erneut oder nutze eine andere Zahlungsart."}
+};
+var HIDDEN = {RISK_SUSPECT:1,FRAUD_RULE_14:1};           /* never disclosed -> "other" */
+function resolve(code){
+  if(HIDDEN[code]) return REASONS.OTHER;
+  return Object.prototype.hasOwnProperty.call(REASONS,code) ? REASONS[code] : REASONS.OTHER;
+}
+
+/* ---------- Scenarios (synthetic) ---------- */
+var SCEN = [
+  {id:"s1",label:"Bakery · in-store · 4.80",channel:"store",merchant:"Bäckerei Lindner",amount:4.80,code:"CONTACTLESS_LIMIT",retries:["ok"]},
+  {id:"s2",label:"Supermarket · limit · 2 failed retries",channel:"store",merchant:"Supermarkt Nord",amount:63.20,code:"LIMIT",retries:[{fail:"LIMIT"},{fail:"LIMIT"}]},
+  {id:"s3",label:"Web shop · 3-D Secure",channel:"online",merchant:"Modehaus Online",amount:89.00,code:"AUTH_3DS",retries:["ok"]},
+  {id:"s4",label:"Fuel · PIN · succeeds on 2nd retry",channel:"store",merchant:"Tankstelle Süd",amount:52.10,code:"PIN",retries:[{fail:"PIN"},"ok"]},
+  {id:"s5",label:"Web shop · risk code (hidden)",channel:"online",merchant:"Elektro Express",amount:249.00,code:"RISK_SUSPECT",retries:["ok"]},
+  {id:"s6",label:"In-store · unknown code",channel:"store",merchant:"Kiosk Hauptbahnhof",amount:12.50,code:"ZZ_999",retries:["ok"]}
+];
+var EXPECT = {s1:"CONTACTLESS_LIMIT",s2:"LIMIT",s3:"AUTH_3DS",s4:"PIN",s5:"OTHER",s6:"OTHER"};
+var PUSH_MS = 1500, RETRY_MS = 800, MAX_FAILS = 2;
+
+/* ---------- State ---------- */
+var state;
+function fresh(){return {events:[],seen:{},view:"activity",current:null,push:null,busy:false,counter:0,log:[],last:null,toast:null,pushOn:true,pushDelay:PUSH_MS,retryMs:RETRY_MS};}
+state = fresh();
+var $ = function(s,r){return (r||document).querySelector(s);};
+var phone = $("#phone");
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+function eur(n){return n.toLocaleString("de-DE",{style:"currency",currency:"EUR"});}
+function log(m){state.log.unshift(m);if(state.log.length>40)state.log.pop();}
+function find(id){for(var i=0;i<state.events.length;i++)if(state.events[i].id===id)return state.events[i];return null;}
+
+/* ---------- Domain ---------- */
+function mkEvent(sc){
+  state.counter++;
+  return {id:"E"+state.counter,channel:sc.channel,merchant:sc.merchant,amount:sc.amount,code:sc.code,currentCode:sc.code,
+          retries:sc.retries.slice(),retryIdx:0,fails:0,status:"declined",pushCount:0,successShown:0};
+}
+function report(ev){                                     /* one decline event -> one row, one push */
+  return new Promise(function(res){
+    if(state.seen[ev.id]){log("Duplicate report of "+ev.id+" ignored: still 1 row, 1 push");render();return res();}
+    state.seen[ev.id]=1;state.events.unshift(ev);state.last=ev;
+    log("Decline "+ev.id+" ("+ev.channel+"): row added");render();
+    if(!state.pushOn){log("Push off: decline visible in activity list only");return res();}
+    setTimeout(function(){
+      ev.pushCount++;state.push=ev.id;
+      log("Push for "+ev.id+" after "+(state.pushDelay/1000)+" s");render();res();
+    },state.pushDelay);
+  });
+}
+function openEvent(id){state.current=id;state.view="decline";if(state.push===id)state.push=null;render();}
+function retry(id){
+  var ev=find(id);
+  if(!ev||state.busy||ev.fails>=MAX_FAILS) return Promise.resolve();
+  state.busy=true;render();
+  return new Promise(function(res){
+    setTimeout(function(){
+      state.busy=false;
+      var o=ev.retries[ev.retryIdx++];
+      if(o===undefined) o={fail:ev.currentCode};
+      if(o==="ok"){
+        ev.status="paid";ev.successShown++;state.view="success";log("Retry for "+ev.id+" succeeded: row set to Paid");
+      }else{
+        ev.fails++;ev.currentCode=o.fail;state.view="decline";log("Retry for "+ev.id+" failed ("+ev.fails+"/"+MAX_FAILS+")");
+      }
+      render();res();
+    },state.retryMs);
+  });
+}
+
+/* ---------- Views ---------- */
+function chan(ev){return ev.channel==="store"?"Im Geschäft":"Online";}
+function viewActivity(){
+  var rows=state.events.map(function(ev){
+    var paid=ev.status==="paid";
+    var inner='<div><div class="t">'+esc(ev.merchant)+'</div><div class="s">'+chan(ev)+' · gerade eben</div></div>'+
+      '<div class="r"><div class="amt">'+eur(ev.amount)+'</div><span class="badge '+(paid?"ok":"err")+'">'+(paid?"Bezahlt":"Abgelehnt")+'</span></div>';
+    return paid?'<div class="act">'+inner+'</div>':'<button class="act" data-act="open" data-id="'+ev.id+'">'+inner+'</button>';
+  }).join("");
+  return '<header class="app-h"><h1>Aktivität</h1><p>Riverty Karte</p></header>'+
+    (rows||'<p class="empty">Noch keine Zahlungen.</p>');
+}
+function viewDecline(ev){
+  var r=resolve(ev.currentCode),locked=ev.fails>=MAX_FAILS;
+  var retryBtn='<button class="btn block'+(locked?'':' primary')+'" data-act="retry" data-id="'+ev.id+'"'+((locked||state.busy)?' disabled':'')+'>'+(state.busy?"Wird geprüft …":"Erneut versuchen")+'</button>';
+  var otherBtn='<button class="btn block'+(locked?' primary':'')+'" data-act="other">Andere Zahlungsart</button>';
+  return '<button class="back" data-act="back">← Aktivität</button>'+
+    '<span class="badge err">Abgelehnt</span>'+
+    '<h2 style="font-size:28px;line-height:35px;letter-spacing:-.5px;margin-top:8px">Warum die Zahlung abgelehnt wurde</h2>'+
+    '<div class="card"><div class="s">'+esc(ev.merchant)+' · '+chan(ev)+'</div><div class="amt">'+eur(ev.amount)+'</div></div>'+
+    (ev.fails>0&&!locked?'<p class="fine" style="margin:0 0 12px">Der erneute Versuch ist fehlgeschlagen.</p>':'')+
+    '<div class="blk reason"><div class="k">Grund</div><div id="reason">'+esc(r.reason)+'</div></div>'+
+    '<div class="blk hint"><div class="k">Nächster Schritt</div><div id="hint">'+esc(r.hint)+'</div></div>'+
+    (locked?'<p class="fine">Zwei Versuche sind fehlgeschlagen. Nutze eine andere Zahlungsart.</p>':'')+
+    '<div class="stack">'+(locked?otherBtn+retryBtn:retryBtn+otherBtn)+'</div>';
+}
+function viewSuccess(ev){
+  return '<div class="ok-ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#298535" stroke-width="1.25"><path d="M4 12.5l5 5L20 6.5"/></svg></div>'+
+    '<h2 style="font-size:32px;line-height:40px;letter-spacing:-.75px">Zahlung abgeschlossen</h2>'+
+    '<div class="card"><div class="s">'+esc(ev.merchant)+' · '+chan(ev)+'</div><div class="amt">'+eur(ev.amount)+'</div></div>'+
+    '<div class="stack"><button class="btn primary block" data-act="done">Zur Aktivität</button></div>';
+}
+function render(){
+  var ev=find(state.current),body;
+  if(state.view==="decline"&&ev) body=viewDecline(ev);
+  else if(state.view==="success"&&ev) body=viewSuccess(ev);
+  else body=viewActivity();
+  var p=find(state.push),html='<div class="screen">'+body+'</div>';
+  if(p){var r=resolve(p.currentCode);
+    html+='<div class="push"><button class="push-main" data-act="push" data-id="'+p.id+'"><div class="h">Riverty · jetzt</div>'+
+      '<div class="t">Zahlung abgelehnt · '+esc(p.merchant)+' · '+eur(p.amount)+'</div><div class="b">'+esc(r.reason)+'</div></button>'+
+      '<button class="push-x" data-act="dismiss" aria-label="Schließen">×</button></div>';}
+  if(state.toast) html+='<div class="toast">'+esc(state.toast)+'</div>';
+  phone.innerHTML=html;
+  $("#log").innerHTML=state.log.slice(0,14).map(function(l){return "<div>"+esc(l)+"</div>";}).join("")||"<div>No events yet.</div>";
+  $("#dup").disabled=!state.last;
+}
+
+/* ---------- Interaction ---------- */
+phone.addEventListener("click",function(e){
+  var t=e.target.closest("[data-act]");if(!t)return;
+  var a=t.getAttribute("data-act"),id=t.getAttribute("data-id");
+  if(a==="open"||a==="push")openEvent(id);
+  else if(a==="retry")retry(id);
+  else if(a==="back"||a==="done"){state.view="activity";render();}
+  else if(a==="dismiss"){state.push=null;render();}
+  else if(a==="other"){state.toast="Prototype: payment method selection is out of scope.";render();setTimeout(function(){state.toast=null;render();},2600);}
+});
+$("#scs").innerHTML=SCEN.map(function(s){
+  return '<button class="sc" data-s="'+s.id+'"><span>'+esc(s.label)+'</span><small>'+s.code+'</small></button>';
+}).join("");
+$("#scs").addEventListener("click",function(e){
+  var b=e.target.closest("[data-s]");if(!b)return;
+  var sc=SCEN.filter(function(s){return s.id===b.getAttribute("data-s");})[0];
+  report(mkEvent(sc));
+});
+$("#dup").addEventListener("click",function(){if(state.last)report(state.last);});
+$("#reset").addEventListener("click",function(){var on=state.pushOn;state=fresh();state.pushOn=on;$("#evals").innerHTML="";render();});
+$("#pushOn").addEventListener("change",function(e){state.pushOn=e.target.checked;log("Push notifications "+(state.pushOn?"on":"off"));render();});
+
+/* ---------- Evals (run against the live UI) ---------- */
+function words(s){return s.trim().split(/\s+/).length;}
+$("#runEvals").addEventListener("click",async function(){
+  var btn=this;btn.disabled=true;
+  var keep=state.pushOn;
+  state=fresh();state.pushDelay=0;state.retryMs=0;
+  var out=[];function add(n,ok,d){out.push({n:n,ok:ok,d:d||""});}
+  var bad=[],silent=0,leaks=0,chs={};
+
+  for(var i=0;i<SCEN.length;i++){
+    var sc=SCEN[i],ev=mkEvent(sc),exp=REASONS[EXPECT[sc.id]];chs[sc.channel]=1;
+    await report(ev);
+    var pb=$(".push-main");var pushOk=!!pb&&pb.textContent.indexOf(exp.reason)>-1;
+    openEvent(ev.id);
+    var ok=$("#reason").textContent===exp.reason&&$("#hint").textContent===exp.hint&&pushOk;
+    if(phone.textContent.indexOf(sc.code)>-1)leaks++;
+    if(!ok)bad.push(sc.id);
+    state.view="activity";render();
+  }
+  silent=SCEN.length-phone.querySelectorAll(".act").length;
+  add("1 Accuracy: every scenario shows the correct reason + hint (push and screen)",!bad.length&&chs.store&&chs.online,bad.length?"Failed: "+bad.join(", "):"6/6 scenarios, both channels");
+  add("1 Accuracy: 0 silent declines (one activity row per event)",silent===0,"Silent: "+silent);
+  var s5=REASONS.OTHER;
+  add("3 Safety: 0 risk/fraud disclosures, 0 raw codes shown, unmapped codes fall back to “other”",
+      leaks===0&&resolve("RISK_SUSPECT")===s5&&resolve("FRAUD_RULE_14")===s5&&resolve("ZZ_999")===s5,"Raw-code leaks: "+leaks);
+
+  var d=mkEvent(SCEN[0]),n=state.events.length;await report(d);await report(d);
+  add("Req 4: one push and one row per decline event (duplicate report)",state.events.length===n+1&&d.pushCount===1,"rows +"+(state.events.length-n)+", pushes "+d.pushCount);
+  add("Req 4: push latency within 5 s (simulated 1.5 s)",PUSH_MS<=5000,PUSH_MS+" ms");
+
+  var tooLong=[];Object.keys(REASONS).forEach(function(k){var r=REASONS[k];if(words(r.hint)>20||r.reason.length>80)tooLong.push(k);});
+  add("Req 2/6: one hint per reason, ≤20 words; reason ≤2 lines (≤80 chars)",!tooLong.length,tooLong.length?tooLong.join(", "):"6 table entries");
+
+  var l=mkEvent(SCEN[1]);await report(l);openEvent(l.id);await retry(l.id);await retry(l.id);
+  var rb=$('[data-act="retry"]');
+  add("Smart behavior: after 2 failed retries, TRY AGAIN disabled and other-payment promoted",l.fails===2&&rb&&rb.disabled&&$(".btn.primary",phone).getAttribute("data-act")==="other","fails "+l.fails);
+
+  var p=mkEvent(SCEN[3]);await report(p);openEvent(p.id);await retry(p.id);await retry(p.id);
+  add("Edge: retry succeeds on 2nd attempt, success screen once, row “Paid”",p.status==="paid"&&p.successShown===1&&state.view==="success","success shown "+p.successShown+"×");
+
+  out.push({n:"2 Time on task: ≥80% of 5+ heavy users state reason and next step within 10 s",ok:null,d:"Manual usability test"});
+  $("#evals").innerHTML=out.map(function(r){
+    var c=r.ok===null?"man":(r.ok?"pass":"fail"),t=r.ok===null?"MANUAL":(r.ok?"PASS":"FAIL");
+    return '<li><b class="'+c+'">'+t+'</b><span>'+esc(r.n)+(r.d?'<br><span style="color:#686868">'+esc(r.d)+'</span>':'')+'</span></li>';
+  }).join("");
+  var html=$("#evals").innerHTML;
+  state=fresh();state.pushOn=keep;render();
+  $("#evals").innerHTML=html;btn.disabled=false;
+});
+
+render();
+})();
+</script>
+</body>
+</html>
