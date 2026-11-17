@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roadmap: Riverty’s First Consumer Card</title>
+<style>
+  :root{
+    --r-text-strong:#000;--r-text-regular:#282828;--r-text-soft:#686868;--r-text-brand:#527A42;--r-text-inverse:#fff;
+    --r-bg-softest:#fff;--r-bg-softer:#F3F1F0;--r-bg-soft:#E7E4E2;--r-bg-inverse:#282828;--r-bg-brand:#527A42;--r-bg-brand-softest:#E5EBE3;
+    --r-border-softest:#E7E4E2;--r-border-softer:#C9C9C9;--r-border-regular:#282828;--r-border-brand:#527A42;--r-border-focused:#0071E3;
+    --ok:#298535;--ok-soft:#F7FDF8;--info:#3E5C73;--info-soft:#F8FAFB;--warn:#FF7429;--warn-soft:#FEF9F5;--err:#B00C15;--err-soft:#FEF6F6;
+    --serif:"GT Ultra Median",Georgia,"Times New Roman",serif;
+    --sans:"SF Pro Text",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{color-scheme:light}
+  body{background:var(--r-bg-softer);color:var(--r-text-regular);font-family:var(--sans);font-size:14px;line-height:1.5;padding:40px 24px 56px}
+  .page{max-width:1240px;margin:0 auto}
+  h1,h2,h3{font-family:var(--serif);font-weight:300;color:var(--r-text-strong)}
+  h1{font-size:40px;line-height:50px;letter-spacing:-1px}
+  h2{font-size:24px;line-height:30px;letter-spacing:-.25px}
+  h3{font-size:20px;line-height:26px}
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--r-text-brand);margin-bottom:8px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:16px;color:var(--r-text-soft);font-size:13px}
+  .meta b{color:var(--r-text-regular);font-weight:600}
+
+  .toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:32px}
+  .toolbar .lbl{font-size:12px;font-weight:600;color:var(--r-text-soft);margin-right:8px}
+  .chip{font:inherit;font-size:13px;background:var(--r-bg-softest);color:var(--r-text-regular);border:1px solid var(--r-border-softer);padding:8px 14px;cursor:pointer;border-radius:0}
+  .chip:hover{background:var(--r-bg-soft)}
+  .chip[aria-pressed="true"]{background:var(--r-bg-inverse);color:var(--r-text-inverse);border-color:var(--r-bg-inverse)}
+  .chip:focus-visible{outline:2px solid var(--r-border-focused);outline-offset:2px}
+
+  .board{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px;align-items:start}
+  .lane{background:var(--r-bg-soft);padding:16px;min-height:200px}
+  .lane-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--r-border-regular);padding-bottom:12px;margin-bottom:16px}
+  .lane-head .sub{font-size:12px;color:var(--r-text-soft);margin-top:2px}
+  .count{font-family:var(--serif);font-size:28px;color:var(--r-text-strong)}
+  .lane.now .lane-head{border-color:var(--r-border-brand)}
+  .cards{display:flex;flex-direction:column;gap:12px}
+
+  .card{background:var(--r-bg-softest);border:1px solid var(--r-border-softer);padding:16px;display:flex;flex-direction:column;gap:12px;transition:opacity .15s}
+  .card.dim{opacity:.28}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .id{font-size:12px;font-weight:600;color:var(--r-text-soft);letter-spacing:.04em}
+  .name{font-family:var(--serif);font-weight:300;font-size:20px;line-height:26px;color:var(--r-text-strong);margin-top:2px}
+  .badge{font-size:11px;font-weight:600;padding:4px 8px;border:1px solid;white-space:nowrap}
+  .qw{color:var(--ok);background:var(--ok-soft);border-color:var(--ok)}
+  .mp{color:var(--info);background:var(--info-soft);border-color:var(--info)}
+  .fi{color:#9a4a12;background:var(--warn-soft);border-color:var(--warn)}
+  .ts{color:var(--err);background:var(--err-soft);border-color:var(--err)}
+  .why{color:var(--r-text-regular);font-size:14px}
+  .scores{display:flex;gap:16px;border-top:1px solid var(--r-border-softest);padding-top:10px;font-size:12px;color:var(--r-text-soft)}
+  .scores b{color:var(--r-text-strong);font-family:var(--serif);font-size:18px;font-weight:300;margin-left:4px}
+  .meter{display:inline-flex;gap:2px;margin-left:8px;vertical-align:middle}
+  .meter i{width:8px;height:8px;background:var(--r-bg-soft);display:block}
+  .meter i.on{background:var(--r-bg-brand)}
+  .meter.eff i.on{background:var(--r-bg-inverse)}
+
+  .cut{margin-top:40px}
+  .cut-list{margin-top:16px;display:flex;flex-direction:column;gap:12px}
+  .cut .card{border-left:4px solid var(--err)}
+  .cut .name{text-decoration:line-through;text-decoration-thickness:1px}
+
+  .legend{margin-top:40px;display:flex;flex-wrap:wrap;gap:8px 24px;font-size:12px;color:var(--r-text-soft);border-top:1px solid var(--r-border-softer);padding-top:16px}
+  .legend span{display:inline-flex;align-items:center;gap:8px}
+
+  @media (max-width:960px){
+    .board{grid-template-columns:1fr}
+    h1{font-size:32px;line-height:40px}
+  }
+  @page{size:A4 landscape;margin:8mm}
+  @media print{
+    body{padding:0;background:#fff;font-size:11px}
+    .toolbar{display:none}
+    .lane{padding:10px}
+    .card{padding:10px;break-inside:avoid}
+    h1{font-size:26px;line-height:32px}
+    .name{font-size:16px;line-height:20px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="eyebrow">BU Pay &amp; Credit</div>
+    <h1>Roadmap: Riverty’s First Consumer Card</h1>
+    <div class="meta">
+      <span><b>Team:</b> 2 PMs · 5 engineers · 2 QAs</span>
+      <span><b>Delivery:</b> end of Q1 ’27</span>
+      <span><b>Primary metric:</b> heavy-user month-2 active share</span>
+      <span><b>Guardrail:</b> spend per active card ≥ EUR 233.15</span>
+    </div>
+  </header>
+
+  <div class="toolbar" role="group" aria-label="Filter by quadrant">
+    <span class="lbl">Filter by quadrant</span>
+    <button class="chip" data-q="all" aria-pressed="true">All</button>
+    <button class="chip" data-q="Quick Win" aria-pressed="false">Quick Win</button>
+    <button class="chip" data-q="Major Project" aria-pressed="false">Major Project</button>
+    <button class="chip" data-q="Fill-In" aria-pressed="false">Fill-In</button>
+    <button class="chip" data-q="Time Sinker" aria-pressed="false">Time Sinker</button>
+  </div>
+
+  <main class="board" id="board" aria-label="Roadmap lanes"></main>
+
+  <section class="cut" aria-label="Cut list">
+    <h2>Cut List</h2>
+    <div class="cut-list" id="cut"></div>
+  </section>
+
+  <footer class="legend">
+    <span><span class="badge qw">Quick Win</span> high value, low effort</span>
+    <span><span class="badge mp">Major Project</span> high value, high effort</span>
+    <span><span class="badge fi">Fill-In</span> low value, low effort</span>
+    <span><span class="badge ts">Time Sinker</span> low value, high effort</span>
+    <span>Scores are 1 to 5. Effort scores are estimates pending engineering input. Source: fictional practice data, not Riverty facts.</span>
+  </footer>
+</div>
+
+<script>
+  const features = [
+    {id:"B1", name:"Decline reason and retry hint", lane:"NOW", v:4, e:2, q:"Quick Win",
+     why:"N-06 returned to debit after a silent decline, and Month 4 in-store declines were 8.7%; this protects the 3.5% decline guardrail rather than the core friction."},
+    {id:"B2", name:"Add to wallet from approval", lane:"NOW", v:4, e:2, q:"Quick Win",
+     why:"Fixes 143 of 431 cards missing the wallet (T-102), but the persona’s in-store share is only 12.1% and online purchases do not need the wallet."},
+    {id:"B3", name:"One balance view", lane:"NEXT", v:5, e:4, q:"Major Project",
+     why:"Removes the “which total is real” moment (T-103, N-07) for the persona; effort is high because it combines two data sources."},
+    {id:"B4", name:"Pay now or later per purchase", lane:"NEXT", v:4, e:3, q:"Major Project",
+     why:"Adds a choice to a persona already checking several places, and likely needs credit and terms approval (N-11)."},
+    {id:"B8", name:"One due date", lane:"NEXT", v:5, e:5, q:"Major Project",
+     why:"Fixes the two-reminder collision (T-104) directly, but N-11 says terms changes take months to re-approve."},
+    {id:"B5", name:"Partner offers in app", lane:"LATER", v:2, e:4, q:"Time Sinker",
+     why:"Serves the merchant side (N-09), and the pack has no data on shopper response to offers."},
+    {id:"B6", name:"Cashback on every purchase", lane:"LATER", v:2, e:4, q:"Time Sinker",
+     why:"N-12 says cashback drives trial, “whether I keep using it is a different question”, and it is a pricing change under N-11."},
+    {id:"B7", name:"Physical card", lane:"CUT", v:1, e:4, q:"Time Sinker",
+     why:"No note or ticket asks for it, and the wallet route already covers tap-to-pay."}
+  ];
+  const lanes = [
+    {key:"NOW",  cls:"now",  sub:"This sprint"},
+    {key:"NEXT", cls:"next", sub:"The following sprints"},
+    {key:"LATER",cls:"later",sub:"Backlog"}
+  ];
+  const badgeCls = {"Quick Win":"qw","Major Project":"mp","Fill-In":"fi","Time Sinker":"ts"};
+
+  const meter = (n, cls) => `<span class="meter ${cls}" aria-hidden="true">${[1,2,3,4,5].map(i=>`<i class="${i<=n?'on':''}"></i>`).join("")}</span>`;
+  const card = f => `
+    <article class="card" data-q="${f.q}">
+      <div class="card-top">
+        <div><div class="id">${f.id}</div><div class="name">${f.name}</div></div>
+        <span class="badge ${badgeCls[f.q]}">${f.q}</span>
+      </div>
+      <p class="why">${f.why}</p>
+      <div class="scores">
+        <span>Value<b>${f.v}</b>${meter(f.v,"val")}</span>
+        <span>Effort<b>${f.e}</b>${meter(f.e,"eff")}</span>
+      </div>
+    </article>`;
+
+  document.getElementById("board").innerHTML = lanes.map(l => {
+    const items = features.filter(f => f.lane === l.key);
+    return `<section class="lane ${l.cls}" aria-label="${l.key}">
+      <div class="lane-head"><div><h2>${l.key}</h2><div class="sub">${l.sub}</div></div><div class="count">${items.length}</div></div>
+      <div class="cards">${items.map(card).join("")}</div>
+    </section>`;
+  }).join("");
+  document.getElementById("cut").innerHTML = features.filter(f => f.lane === "CUT").map(card).join("");
+
+  const chips = document.querySelectorAll(".chip");
+  chips.forEach(c => c.addEventListener("click", () => {
+    chips.forEach(x => x.setAttribute("aria-pressed", x === c ? "true" : "false"));
+    const q = c.dataset.q;
+    document.querySelectorAll(".card").forEach(el => el.classList.toggle("dim", q !== "all" && el.dataset.q !== q));
+  }));
+</script>
+</body>
+</html>
