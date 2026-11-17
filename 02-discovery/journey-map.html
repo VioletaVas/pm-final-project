@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Future-State Journey: Multi-App Everyday Splitter</title>
+<style>
+  :root{
+    --r-text-strong:#000;--r-text-regular:#282828;--r-text-soft:#686868;--r-text-brand:#527A42;
+    --r-bg-softest:#fff;--r-bg-softer:#F3F1F0;--r-bg-brand:#527A42;--r-bg-brand-softest:#E5EBE3;--r-bg-inverse:#282828;
+    --r-border-softest:#E7E4E2;--r-border-softer:#C9C9C9;--r-border-brand:#527A42;
+    --serif:"GT Ultra Median",Georgia,"Times New Roman",serif;
+    --sans:"SF Pro Text",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{color-scheme:light}
+  body{background:var(--r-bg-softer);color:var(--r-text-regular);font-family:var(--sans);font-size:14px;line-height:1.45;padding:32px 24px}
+  .page{max-width:1160px;margin:0 auto}
+  h1,h2,h3{font-family:var(--serif);font-weight:300;color:var(--r-text-strong)}
+  h1{font-size:32px;line-height:40px;letter-spacing:-.75px}
+  h2{font-size:24px;line-height:30px;letter-spacing:-.25px}
+  h3{font-size:20px;line-height:26px}
+  .sub{color:var(--r-text-soft);margin-top:8px;max-width:900px}
+  .persona{background:var(--r-bg-softest);border:1px solid var(--r-border-softer);padding:16px 20px;margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .persona b{display:block;font-size:12px;color:var(--r-text-brand);margin-bottom:4px;letter-spacing:.04em;text-transform:none}
+  .persona span{font-size:13px}
+  /* timeline */
+  .timeline{margin-top:40px;position:relative}
+  .rail{position:absolute;left:12.5%;right:12.5%;top:20px;height:2px;background:var(--r-border-brand)}
+  .stages{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;list-style:none}
+  .stage{display:flex;flex-direction:column}
+  .node{width:40px;height:40px;border-radius:9999px;background:var(--r-bg-brand);color:#fff;font-family:var(--serif);font-size:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;position:relative;z-index:1;border:4px solid var(--r-bg-softer)}
+  .card{background:var(--r-bg-softest);border:1px solid var(--r-border-softer);padding:16px;flex:1;display:flex;flex-direction:column;gap:14px}
+  .card h3{border-bottom:1px solid var(--r-border-softest);padding-bottom:10px}
+  .lbl{font-size:11px;letter-spacing:.06em;text-transform:none;color:var(--r-text-soft);font-weight:600;margin-bottom:2px}
+  .val{font-size:14px;color:var(--r-text-regular)}
+  .state .val{color:var(--r-text-soft)}
+  .pain{background:var(--r-bg-brand-softest);border-left:2px solid var(--r-border-brand);padding:10px 12px}
+  .pain .lbl{color:var(--r-text-brand)}
+  /* advantages */
+  .adv{margin-top:40px}
+  .advgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px;list-style:none}
+  .advgrid li{background:var(--r-bg-inverse);color:#fff;padding:16px 20px}
+  .advgrid .n{font-family:var(--serif);font-size:28px;color:#E7E4E2;display:block;margin-bottom:4px}
+  .foot{margin-top:32px;font-size:12px;color:var(--r-text-soft);border-top:1px solid var(--r-border-softer);padding-top:12px}
+  .foot p+p{margin-top:4px}
+  @media (max-width:900px){
+    .persona{grid-template-columns:1fr}
+    .stages{grid-template-columns:1fr}
+    .rail{display:none}
+    .advgrid{grid-template-columns:1fr}
+  }
+  @page{size:A4 landscape;margin:8mm}
+  @media print{
+    body{padding:0;font-size:11px;background:#fff}
+    h1{font-size:24px;line-height:30px}
+    h3{font-size:16px;line-height:20px}
+    .persona{margin-top:12px;padding:10px 14px;gap:16px}
+    .timeline{margin-top:20px}
+    .card{padding:10px;gap:8px}
+    .adv{margin-top:16px}
+    .advgrid li{padding:10px 14px}
+    .advgrid .n{font-size:20px}
+    .foot{margin-top:12px;font-size:10px}
+    .val{font-size:11px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>Future-State Journey: One Balance, One Due Date</h1>
+    <p class="sub">Riverty is extending from pay-later checkout into a consumer card for its heaviest BNPL users, by replacing the habit of checking several apps with one balance.</p>
+  </header>
+
+  <section class="persona" aria-label="Persona">
+    <div><b>Persona</b><span>Heavy BNPL user, 18-34, runs two pay-later apps (N-01, N-02, N-04)</span></div>
+    <div><b>Goal</b><span>Everyday spend, including splitting the big weekly shop, without another app to monitor</span></div>
+    <div><b>Friction replaced</b><span>Two screens, two reminders, no single total (N-07, T-103, T-104)</span></div>
+  </section>
+
+  <section class="timeline" aria-label="Future-state timeline">
+    <div class="rail" aria-hidden="true"></div>
+    <ol class="stages">
+      <li class="stage">
+        <div class="node">1</div>
+        <div class="card">
+          <h3>Activate &amp; Add to Wallet</h3>
+          <div><div class="lbl">User Action</div><div class="val">Add card to wallet at approval -> tap-to-pay ready immediately</div></div>
+          <div class="state"><div class="lbl">Internal State (inferred)</div><div class="val">Eager to try it; low patience for setup</div></div>
+          <div class="pain"><div class="lbl">Pain Point Addressed</div><div class="val">Wallet add inside approval (B2) -> fixes 143 of 431 cards never added (T-102)</div></div>
+        </div>
+      </li>
+      <li class="stage">
+        <div class="node">2</div>
+        <div class="card">
+          <h3>Pay in Shop</h3>
+          <div><div class="lbl">User Action</div><div class="val">Tap card at supermarket -> split the weekly shop, no extra app</div></div>
+          <div class="state"><div class="lbl">Internal State (inferred)</div><div class="val">Expects debit-card reliability (N-03)</div></div>
+          <div class="pain"><div class="lbl">Pain Point Addressed</div><div class="val">Decline reason and retry hint (B1) -> no silent switch to debit (T-101, N-06)</div></div>
+        </div>
+      </li>
+      <li class="stage">
+        <div class="node">3</div>
+        <div class="card">
+          <h3>Check One Balance</h3>
+          <div><div class="lbl">User Action</div><div class="val">Open app before payday -> see card and invoices as one total</div></div>
+          <div class="state"><div class="lbl">Internal State (inferred)</div><div class="val">In control; one look settles the question (N-02)</div></div>
+          <div class="pain"><div class="lbl">Pain Point Addressed</div><div class="val">One balance view (B3) -> ends "which total is real" (T-103, N-07)</div></div>
+        </div>
+      </li>
+      <li class="stage">
+        <div class="node">4</div>
+        <div class="card">
+          <h3>Settle on One Due Date</h3>
+          <div><div class="lbl">User Action</div><div class="val">Receive one reminder -> pay one amount on one date</div></div>
+          <div class="state"><div class="lbl">Internal State (inferred)</div><div class="val">Confident the amount is right (T-104)</div></div>
+          <div class="pain"><div class="lbl">Pain Point Addressed</div><div class="val">One due date (B8) -> replaces two conflicting reminders (T-104)</div></div>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="adv" aria-label="Competitive advantages">
+    <h2>Competitive Advantages over the Manual Workaround</h2>
+    <ol class="advgrid">
+      <li><span class="n">1</span>One balance -> no summing across apps before payday</li>
+      <li><span class="n">2</span>One due date -> no reconciling mismatched reminders</li>
+      <li><span class="n">3</span>Clear decline reasons -> no silent fallback to the debit card</li>
+    </ol>
+  </section>
+
+  <footer class="foot">
+    <p>Internal States are inferred from cited notes and unvalidated. Workaround steps are hypotheses; the pack records no external tools.</p>
+    <p>B8 may alter terms and trigger months of re-approval (N-11). Merchant offers (B5) are outside this persona's journey. Source: fictional practice data pack, not Riverty facts.</p>
+  </footer>
+</div>
+</body>
+</html>
