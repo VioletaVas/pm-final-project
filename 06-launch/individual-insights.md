@@ -14,7 +14,9 @@ _____
 
 ## Key learnings
 
-AI has been extremely helpful not only in a quick creation of artifacts, but also in bouncing off ideas, so I will continue to enhance my literacy to make it my co-pilot for future product ideas and team empowerment overall.
+Volume. There are about 431 activations and about 40 declines a month (derived). That is too little to power a retention test. A 2-week cycle cannot read out a month-2 metric.
+Dilution. Only cards that hit a decline can be affected, so the effect across all cards is a fraction of the effect among the exposed.
+Overall - AI has been extremely helpful not only in a quick creation of artifacts, but also in bouncing off ideas, so I will continue to enhance my literacy to make it my co-pilot for future product ideas and team empowerment overall.
 
 _____
 
