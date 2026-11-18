@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Decline reason and retry hint | Final Project</title>
+<style>
+:root{--bg:#07162C;--fg:#fff;--mut:#cbd5e1;--or:#fb923c;--cy:#22d3ee;--tl:#34d399;--bl:#60a5fa;--vi:#a78bfa;--pk:#f472b6;--eb:#fdba74;--bd:rgba(251,146,60,.25);--card:rgba(255,255,255,.04)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;background:var(--bg)}
+body{background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:clamp(12px,1.05vw,15px);line-height:1.4}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+section{min-height:100vh;scroll-snap-align:start;padding:clamp(28px,4.5vh,52px) clamp(24px,5vw,80px);display:flex;flex-direction:column;justify-content:center;gap:14px;position:relative}
+.eb{font-family:ui-monospace,Menlo,Consolas,monospace;text-transform:uppercase;letter-spacing:.12em;color:var(--eb);font-size:.82em}
+h1{font-size:clamp(34px,5vw,68px);line-height:1.05;letter-spacing:-.02em}
+h2{font-size:clamp(22px,2.6vw,36px);line-height:1.15;letter-spacing:-.01em;max-width:62ch}
+h3{font-size:1em;color:var(--eb);font-family:ui-monospace,Menlo,Consolas,monospace;text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:6px;font-size:.8em}
+p,li{color:var(--mut)}
+b,strong{color:var(--fg)}
+ul{padding-left:1.1em}li{margin:2px 0}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:15px;padding:14px 16px}
+.hero{background:linear-gradient(135deg,rgba(251,146,60,.16),rgba(34,211,238,.06));box-shadow:0 12px 34px rgba(0,0,0,.4)}
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.g21{grid-template-columns:1.25fr 1fr}
+.call{border-left:4px solid var(--or);background:linear-gradient(90deg,rgba(251,146,60,.18),rgba(251,146,60,.03));border-radius:0 14px 14px 0;padding:12px 16px;color:var(--fg)}
+.call.bad{border-left-color:var(--pk);background:linear-gradient(90deg,rgba(244,114,182,.17),rgba(244,114,182,.03))}
+.pill{display:inline-block;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.78em;padding:3px 10px;border-radius:99px;border:1px solid currentColor;margin:2px 4px 2px 0}
+.or{color:var(--or)}.cy{color:var(--cy)}.tl{color:var(--tl)}.bl{color:var(--bl)}.vi{color:var(--vi)}.pk{color:var(--pk)}
+.kpi{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:1.7em;font-weight:700;line-height:1.1}
+table{width:100%;border-collapse:collapse;font-size:.92em}
+td{padding:4px 8px;border-bottom:1px solid rgba(255,255,255,.08);color:var(--mut);vertical-align:top}
+td:first-child{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--eb);white-space:nowrap;width:34%}
+.step{position:relative}.step .n{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--or);font-size:.8em}
+.step.misery{border-color:var(--pk);background:linear-gradient(160deg,rgba(244,114,182,.2),rgba(244,114,182,.04));box-shadow:0 10px 28px rgba(244,114,182,.18)}
+.step.misery .tag{display:inline-block;background:var(--pk);color:#07162C;font-weight:700;font-size:.72em;padding:2px 8px;border-radius:99px;font-family:ui-monospace,Menlo,Consolas,monospace;margin-bottom:4px}
+.step small{display:block;color:var(--mut);margin-top:4px}
+a{color:var(--cy)}
+.ph{border:1px dashed rgba(203,213,225,.5);border-radius:8px;padding:2px 8px;color:var(--mut);font-style:italic}
+#bar{position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,var(--or),var(--cy));z-index:20}
+#dots{position:fixed;right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:20}
+#dots a{width:10px;height:10px;border-radius:50%;border:1px solid var(--or);display:block;background:transparent}
+#dots a.on{background:var(--or)}
+.cover h1 span{color:var(--or)}
+.cmt{font-size:.8em;color:#94a3b8}
+@media(max-width:900px){.g2,.g3,.g4,.g21{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<nav id="dots" aria-label="Slides"></nav>
+
+<section id="s1" class="cover">
+  <div class="eb">Product School · PM Certification · Final Project</div>
+  <h1>Decline reason<br><span>and retry hint</span></h1>
+  <p style="font-size:1.35em;max-width:56ch;color:var(--fg)">Every decline explains itself and tells you how to retry, so heavy BNPL users finish the purchase on their Riverty card instead of switching back to debit.</p>
+  <div class="grid g3" style="max-width:900px">
+    <div class="card"><h3>Author</h3><b>Violeta Vasiliu</b><br><span class="mono">Cohort #2, November 2026</span></div>
+    <div class="card"><h3>Repo</h3><a class="mono" href="https://github.com/VioletaVas/pm-final-project">github.com/VioletaVas/pm-final-project</a></div>
+    <div class="card"><h3>Prototype</h3><span class="pill or">Prototype</span> <span class="mono">04-roadmap/prototype.html</span></div>
+  </div>
+  <div class="mono cmt">Riverty BU Pay &amp; Credit · First Consumer Card</div>
+</section>
+
+<section id="s2">
+  <div class="eb">Slide 5 · Strategy</div>
+  <h2>Heavy pay-later users juggle several apps. One unexplained decline sends them back to debit.</h2>
+  <div class="grid g21">
+    <div class="grid" style="gap:12px">
+      <div class="card hero"><h3>Problem hook</h3><p style="color:var(--fg)">Riverty’s heaviest pay-later users already juggle several apps, and the test card sends them back to their debit card at the first unexplained decline, so unless one balance and reliable in-store payment ship soon, the banking licence launches a card nobody keeps in their wallet while merchants question Riverty’s checkout.</p></div>
+      <div class="card"><h3>Value proposition</h3><p>Pay later anywhere, with <b>one balance and one due date</b> for card and invoice, and <b>clear reasons when a payment fails</b>. For merchants, the card brings offers that send shoppers to their shops.</p>
+      <p style="margin-top:6px"><b>Why now:</b> licence is live · heavy-user demand · Month 1 cohort activity falls <b class="mono">66.3% → 51.0%</b> (month 1 to 2).</p></div>
+      <div class="card"><h3>Risk verdict</h3><p><span class="pill tl">Initiative-worthy</span><span class="pill pk">Not yet a proven threat</span></p>
+      <p>Heavy users: <b>82.6%</b> activation, <b>€320.88</b>/month, <b>25.4%</b> instalments. Evidence base is thin: 4 months, 1,200 invitees, 12 notes, no competitor data. Launch is conditional on B1, B2, B3/B8, starting with heavy BNPL users plus a non-employee cohort.</p></div>
+    </div>
+    <div class="grid" style="gap:12px;align-content:start">
+      <div class="call"><div class="eb">Data-backed hypothesis</div><p style="color:var(--fg);margin-top:6px">Based on <b>N-07</b>, tickets <b>T-103</b> and <b>T-104</b>, and cohorts losing <b>11.3 to 20.5pp</b> of active cards in the first month (<b>51.0 to 57.1%</b> still active in month 2), I believe that giving heavy BNPL users one balance and one due date will result in more of them still buying two months after activation, as measured by a <b>10pp</b> increase in heavy-user month-2 active share. Guardrail: spend per active card <b>≥ €233.15</b>. Go/no-go after two cohorts reach month 2, with <b>100+</b> heavy activated cards each.</p></div>
+      <div class="card"><h3>Moment of misery</h3><ul><li><b>Systemic:</b> in-store reliability (6.4% to 12.1% declines; 48 with no reason, T-101)</li><li><b>Systemic by design:</b> split balances and due dates (T-103, T-104)</li><li><b>Limited reach:</b> 143 of 431 cards never reached the wallet (T-102)</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="s3">
+  <div class="eb">Slide 6 · Research</div>
+  <h2>Workaround: six manual steps to learn one total</h2>
+  <div class="grid g21">
+    <div class="card hero"><h3>Competitive analysis / workaround</h3>
+      <ol style="padding-left:1.2em;color:var(--mut)">
+        <li>Open each pay-later app and the Riverty card screen.</li>
+        <li>Read each balance and due date separately.</li>
+        <li>Sum the amounts mentally, with some external tool.</li>
+        <li>Reconcile two reminders against each other (T-104).</li>
+        <li>Ask support or the nearest participant which total is real (T-103).</li>
+        <li>Fall back to the debit card when uncertain (N-03, N-06).</li>
+      </ol>
+      <p style="margin-top:8px"><b>External tools:</b> spreadsheet, notes app, banking app, calendar.</p>
+    </div>
+    <div class="grid" style="gap:12px;align-content:start">
+      <div class="card"><h3>Persona</h3><p><b>Heavy BNPL user, 18-34</b>, runs two pay-later apps (N-01, N-02, N-04). Goal: everyday spend, including the weekly shop, without another app to monitor.</p></div>
+      <div class="call bad"><div class="eb">Core frustration</div><p style="color:var(--fg);margin-top:4px">Not knowing what they owe in total, at the moment a payment demand arrives. T-103 and T-104 collide: two reminders, different amounts, same week, on separate screens. N-02: “one more thing to check before payday.”</p></div>
+    </div>
+  </div>
+  <div class="eb" style="margin-top:4px">Journey map · journey-map.html</div>
+  <div class="grid g4">
+    <div class="card step"><span class="n">01</span><b> Activate &amp; Add to Wallet</b><small><b>Action:</b> add card at approval, tap-to-pay ready</small><small><b>State (inferred):</b> eager, low patience for setup</small><small class="tl"><b>Fix:</b> B2 wallet at approval (143 of 431 never added, T-102)</small></div>
+    <div class="card step"><span class="n">02</span><b> Pay in Shop</b><small><b>Action:</b> tap at supermarket, split the weekly shop</small><small><b>State (inferred):</b> expects debit-card reliability (N-03)</small><small class="tl"><b>Fix:</b> B1 decline reason and retry hint (T-101, N-06)</small></div>
+    <div class="card step misery"><span class="tag">MOMENT OF MISERY</span><br><span class="n">03</span><b> Check One Balance</b><small><b>Action:</b> open app before payday, want card and invoices as one total</small><small><b>State (inferred):</b> in control, one look settles it (N-02)</small><small class="pk"><b>Fix:</b> B3 one balance ends “which total is real” (T-103, N-07)</small></div>
+    <div class="card step"><span class="n">04</span><b> Settle on One Due Date</b><small><b>Action:</b> receive one reminder, pay one amount</small><small><b>State (inferred):</b> confident the amount is right (T-104)</small><small class="tl"><b>Fix:</b> B8 one due date replaces two reminders (T-104)</small></div>
+  </div>
+</section>
+
+<section id="s4">
+  <div class="eb">Slide 7 · Blueprint</div>
+  <h2>Now: B1 decline reason and retry hint. Scope held by MoSCoW.</h2>
+  <div class="grid g4">
+    <div class="card hero" style="border-color:var(--tl)"><h3 class="tl">Must</h3><ul><li>Plain-language reason for every decline, with “other” fallback</li><li>One retry hint per reason</li><li>In-store and online (8.7% in-store, ~18 of 206; ~22 online)</li><li>Push at decline time (T-108)</li><li>German copy</li></ul></div>
+    <div class="card"><h3 class="cy">Should</h3><ul><li>Decline and retry instrumentation</li><li>Decline history in app</li><li>One-tap retry</li><li>Support link</li></ul></div>
+    <div class="card"><h3 class="vi">Could</h3><ul><li>Personalised hints from history</li><li>Early warning before likely decline</li><li>“Was this helpful?” feedback</li></ul></div>
+    <div class="card"><h3 class="pk">Won’t (now)</h3><ul><li>Credit policy, limits, approval rules (N-11)</li><li>Reducing decline rate; auto-retry</li><li>Fraud or risk detail; notification rebuild</li><li>B3, B8, B4, B5, B6, B7</li></ul></div>
+  </div>
+  <div class="grid g2">
+    <div class="card"><h3>Prioritization overrides vs AI</h3>
+      <table>
+      <tr><td>B1 Decline reason</td><td>3/2 → <b>4/2</b>, Fill-in → <b class="tl">Quick Win</b></td></tr>
+      <tr><td>B2 Wallet at approval</td><td>2/2 → <b>4/2</b>, Fill-in → <b class="tl">Quick Win</b> (T-102)</td></tr>
+      <tr><td>B4 Pay now or later</td><td>2/4 → <b>4/3</b>, Time Sinker → <b class="bl">Major Project</b></td></tr>
+      <tr><td>Cut</td><td>B7 physical card: no note or ticket asks for it</td></tr>
+      </table></div>
+    <div class="card hero"><h3>PRD highlights · <span class="pill or">Prototype</span><span class="mono" style="text-transform:none;letter-spacing:0">04-roadmap/prototype.html</span></h3>
+      <ul><li><b>Vision:</b> every decline explains itself, so users fix it at the till, not with debit.</li><li><b>Screens:</b> Decline alert → Why it was declined → Payment completed.</li><li><b>Reqs:</b> 0 silent declines (baseline 48, T-101); one push per event within 5 s (assumption); unmapped reasons route to “other”; copy from approved table only.</li><li><b>Evals:</b> 100% correct reason and hint; 80%+ of 5+ heavy users state next step within 10 s; 0 risk or fraud disclosures.</li></ul></div>
+  </div>
+</section>
+
+<section id="s5">
+  <div class="eb">Slide 8 · Validation</div>
+  <h2>Experiment: 50/50 test of decline reason and retry hint on heavy BNPL users</h2>
+  <div class="grid g2">
+    <div class="card hero"><h3>Experiment plan</h3>
+      <table>
+      <tr><td>Hypothesis</td><td>More heavy users still buying two months after activation</td></tr>
+      <tr><td>Primary metric</td><td>Heavy-user month-2 active share (1+ purchase two months after activation)</td></tr>
+      <tr><td>Baseline</td><td>All-user: <b>51.0%</b> (M1), <b>57.1%</b> (M2). Heavy baseline not in pack.</td></tr>
+      <tr><td>MDE</td><td><b>10</b> (pp)</td></tr>
+      <tr><td>Guardrails</td><td>Spend per active card ≥ <b>€233.15</b>; decline rate ≤ <b>3.5%</b></td></tr>
+      <tr><td>Sample / arm</td><td><b>386</b>, split 50/50</td></tr>
+      <tr><td>Duration</td><td>2 weekly cycles</td></tr>
+      <tr><td>Power / alpha</td><td>80% / 5%</td></tr>
+      </table></div>
+    <div class="grid" style="gap:12px;align-content:start">
+      <div class="grid g2">
+        <div class="card"><h3>Control (A)</h3><p>Today’s experience: declines are silent (T-101). Balance and reminder friction (T-103, T-104) stays.</p></div>
+        <div class="card" style="border-color:var(--tl)"><h3 class="tl">Variant (B)</h3><p>One change: every decline shows a <b>reason</b> and one <b>retry hint</b> (alert, reason screen, TRY AGAIN, USE ANOTHER PAYMENT METHOD).</p></div>
+      </div>
+      <div class="card"><h3>Held constant</h3><p>App version, approval and credit policy, limits, decline rate, balance screens, wallet add, offers. Randomized per card at activation, stratified by employee vs friend/family (assumption).</p></div>
+      <div class="card hero"><h3>Ship / iterate / kill</h3>
+        <p><span class="pill tl">Ship</span> +10pp or more across two cohorts of 100+ heavy cards each</p>
+        <p><span class="pill or">Iterate</span> +0 to 10pp</p>
+        <p><span class="pill pk">Kill</span> no gain after two cohorts, or guardrail breached</p>
+        <p class="cmt">Thresholds are assumptions, not grounded in the pack.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="s6">
+  <div class="eb">Slide 9 · Launch</div>
+  <h2>S-tier, minimal: the decline push is the channel</h2>
+  <div class="grid g3">
+    <div class="card"><h3>Goal</h3><span class="ph">Not filled in. Add launch goal before submission.</span><p style="margin-top:6px"><b>Feature:</b> Decline reason and retry hint</p></div>
+    <div class="card"><h3>Audience</h3><p>Heavy BNPL user who runs two pay-later apps</p></div>
+    <div class="card hero"><h3>Tier</h3><span class="pill or">S, Minimal</span><p style="margin-top:4px">~40 declines/month (18 in-store + ~22 online, derived). No paid media, agency or video.</p></div>
+  </div>
+  <div class="card"><h3>Channels (all owned)</h3>
+    <span class="pill or">Decline push: 5 s, once per event, 1-tap open</span>
+    <span class="pill cy">Decline screen + red “Declined” row + changelog + push opt-in at activation</span>
+    <span class="pill vi">Lifecycle email: held until readout (M tier only)</span></div>
+  <div class="grid g3">
+    <div class="card"><h3 class="or">1 · Decline recovery rate (primary)</h3><p>Share of declines followed by a successful card payment at the same merchant within [window]</p></div>
+    <div class="card"><h3 class="cy">2 · Month-2 active share</h3><p>Cards with 1+ purchase in days 31 to 60 after activation; heavy users as subgroup</p></div>
+    <div class="card"><h3 class="tl">3 · Spend per activated card (guardrail)</h3><p>Total spend ÷ all activated cards, not just active ones</p></div>
+  </div>
+  <div class="call bad"><div class="eb">Bad signals</div><p style="color:var(--fg);margin-top:4px"><b>Recovery up, month-2 flat:</b> single payment recovered, user does not return · <b>Recovery up, USE ANOTHER PAYMENT METHOD high:</b> recovery via a competitor’s method · <b>Declines per card rising:</b> retry loops · <b>Push disable rate up:</b> push seen as noise.</p></div>
+  <p class="cmt mono">Likely decision: <b>Iterate</b> (low exposure, first readout likely under-powered). Phases: Beta (baselines, dogfood) → Launch (50/50, no external comms) → Post-launch readout.</p>
+</section>
+
+<section id="s7">
+  <div class="eb">Slide 10 · Story</div>
+  <h2>The decline event is the right unit of analysis</h2>
+  <div class="grid g2">
+    <div class="card"><h3 class="pk">Friction points</h3><ul><li>Some numbers undefined.</li><li><b>Wrong baseline:</b> 51.0% and 57.1% cover all users, my hypothesis targets heavy users. Heavy share and baseline were not in the data pack.</li><li>Back and forth on the feature to test: the main value feature was not a quick win, so not a NOW feature.</li></ul></div>
+    <div class="card hero" style="border-color:var(--tl)"><h3 class="tl">Aha moment</h3><p>The feature has a built-in trigger, the decline event, logged in both arms. That points to <b>decline recovery</b> as primary metric and <b>month-2 active share</b> as second. It also makes the product itself the channel (the decline push), so the launch is an <b>S-tier release</b>, not a campaign.</p></div>
+  </div>
+  <div class="card"><h3>Key takeaways / next</h3><p>AI helped with fast artifact creation and with bouncing off ideas. Next: keep building AI literacy as a co-pilot for future product ideas and team empowerment. Pull the four baselines first to confirm the test is feasible.</p></div>
+</section>
+
+<section id="s8" style="align-items:center;text-align:center">
+  <div class="eb">Thank you</div>
+  <h1>Thank you</h1>
+  <p class="mono"><a href="https://github.com/VioletaVas/pm-final-project">github.com/VioletaVas/pm-final-project</a></p>
+  <div><span class="pill or">Cohort #2 · November 2026</span><span class="pill cy">Violeta Vasiliu</span></div>
+  <div class="call" style="border-radius:99px;border-left-width:1px;border:1px solid var(--or);padding:10px 26px"><b>Submit to the learning platform</b>: repo link + 06-launch/final-presentation.html</div>
+</section>
+
+<script>
+(function(){
+var secs=[].slice.call(document.querySelectorAll('section')),nav=document.getElementById('dots'),bar=document.getElementById('bar');
+secs.forEach(function(s,i){var a=document.createElement('a');a.href='#'+s.id;a.title='Slide '+(i+1);nav.appendChild(a)});
+var dots=[].slice.call(nav.children);
+function cur(){var y=window.scrollY+window.innerHeight/2,k=0;secs.forEach(function(s,i){if(s.offsetTop<=y)k=i});return k}
+function upd(){var h=document.documentElement.scrollHeight-window.innerHeight;bar.style.width=(h>0?window.scrollY/h*100:0)+'%';var k=cur();dots.forEach(function(d,i){d.className=i===k?'on':''})}
+function go(i){i=Math.max(0,Math.min(secs.length-1,i));secs[i].scrollIntoView({behavior:'smooth'})}
+window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();
+document.addEventListener('keydown',function(e){var k=e.key;
+if(k==='ArrowDown'||k===' '||k==='PageDown'){e.preventDefault();go(cur()+(e.shiftKey?-1:1))}
+else if(k==='ArrowUp'||k==='PageUp'){e.preventDefault();go(cur()-1)}
+else if(k==='Home'){e.preventDefault();go(0)}
+else if(k==='End'){e.preventDefault();go(secs.length-1)}
+else if(k==='Escape'){go(0)}});
+})();
+</script>
+</body>
+</html>
