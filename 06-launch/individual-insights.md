@@ -6,18 +6,19 @@
 
 ## Friction points
 
-_The biggest technical or strategic challenge you faced while developing your product concept._
+Some undefined numbers for some cases.
+Wrong baseline - the baselines (51.0% and 57.1%) cover all users, but my hypothesis targets heavy users. The heavy share and the heavy baseline were not in the data pack.
+Back and forth on the feature to choose for the test. (not happy with it, but the main feature of value was not a quick win, aka a NOW feature).
 
 _____
 
 ## Key learnings
 
-_A few surprising discoveries or insights you gained from the course overall._
+AI has been extremely helpful not only in a quick creation of artifacts, but also in bouncing off ideas, so I will continue to enhance my literacy to make it my co-pilot for future product ideas and team empowerment overall.
 
 _____
 
 ## Aha! moment
 
-_Your main "aha" moment during the project process._
-
+AHA moment - the feature has a built-in trigger, the decline event, and declines are logged in both arms. That makes the decline event the right unit of analysis. It points to decline recovery as the primary metric and puts month-2 active share second. It also makes the product itself the channel (the decline push), which is why the launch is an S-tier release and not a campaign.
 _____
